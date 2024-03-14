@@ -62,14 +62,14 @@ function getData(obj) {
 			oMn.c.o[1], // C科原
 			oMn.c.t[1], // C科
 		],
-		"tna": [        // 各科总报考人数
-			sub.tot[getSel(obj)[0][2]], // 总分
-			sub.chn[getSel(obj)[0][2]], // 语文
-			sub.mat[getSel(obj)[0][2]], // 数学
-			sub[getSel(obj)[3][getSel(obj)[0][2]]], // 外语
-			sub[getSel(obj)[0][getSel(obj)[0][2]]], // A科
-			sub[getSel(obj)[1][getSel(obj)[0][2]]], // B科
-			sub[getSel(obj)[2][getSel(obj)[0][2]]], // C科
+		"tna": [                                       // 各科总报考人数
+			sub.tot[getSel(obj)[0][2]],                // 总分
+			sub.chn[getSel(obj)[0][2]],                // 语文
+			sub.mat[getSel(obj)[0][2]],                // 数学
+			sub[getSel(obj)[3][0]][getSel(obj)[0][2]], // 外语
+			sub[getSel(obj)[0][0]][getSel(obj)[0][2]], // A科
+			sub[getSel(obj)[1][0]][getSel(obj)[0][2]], // B科
+			sub[getSel(obj)[2][0]][getSel(obj)[0][2]], // C科
 		]
 	}
 	return objData
@@ -97,23 +97,23 @@ function query() {
 			<li><span class="sub">班级</span>
 			<span class="data">高三 (${objData.classNum}) 班</span></li>
 			<li><span class="sub">总分</span>
-			<span class="data"><b>${objData.grd[0]}</b>/750 (${objData.cty[0]}/${objData.tna[0]})</span></li>
+			<span class="data"><b>${objData.grd[0]}</b>/750 (${objData.cty[0]} / ${objData.tna[0]})</span></li>
 			<li><span class="sub">语文</span>
-			<span class="data"><b>${objData.grd[1]}</b>/150 (${objData.cty[1]}/${objData.tna[1]})</span></li>
+			<span class="data"><b>${objData.grd[1]}</b>/150 (${objData.cty[1]} / ${objData.tna[1]})</span></li>
 			<li><span class="sub">数学</span>
-			<span class="data"><b>${objData.grd[2]}</b>/150 (${objData.cty[2]}/${objData.tna[2]})</span></li>
+			<span class="data"><b>${objData.grd[2]}</b>/150 (${objData.cty[2]} / ${objData.tna[2]})</span></li>
 			<li><span class="sub">${getSel(iNm)[3][1]}</span>
-			<span class="data"><b>${objData.grd[3]}</b>/150 (${objData.cty[3]}/${objData.tna[3][0]})</span></li>
+			<span class="data"><b>${objData.grd[3]}</b>/150 (${objData.cty[3]} / ${objData.tna[3]})</span></li>
 			<li><span class="sub">${getSel(iNm)[0][1]}</span>
-			<span class="data"><b>${objData.grd[4]}</b>/100 (${objData.cty[4]}/${objData.tna[4][0]})</span></li>
+			<span class="data"><b>${objData.grd[4]}</b>/100 (${objData.cty[4]} / ${objData.tna[4]})</span></li>
 			<li><span class="sub">${getSel(iNm)[1][2]}</span>
-			<span class="data"><i>${objData.grd[5]}</i> (${objData.cty[5]}/${objData.tna[5][0]})</span></li>
+			<span class="data"><i>${objData.grd[5]}</i> (${objData.cty[5]} / ${objData.tna[5]})</span></li>
 			<li><span class="sub">${getSel(iNm)[1][1]}</span>
-			<span class="data"><b>${objData.grd[6]}</b>/100 (${objData.cty[6]}/${objData.tna[5][0]})</span></li>
+			<span class="data"><b>${objData.grd[6]}</b>/100 (${objData.cty[6]} / ${objData.tna[5]})</span></li>
 			<li><span class="sub">${getSel(iNm)[2][2]}</span>
-			<span class="data"><i>${objData.grd[7]}</i> (${objData.cty[7]}/${objData.tna[6][0]})</span></li>
+			<span class="data"><i>${objData.grd[7]}</i> (${objData.cty[7]} / ${objData.tna[6]})</span></li>
 			<li><span class="sub">${getSel(iNm)[2][1]}</span>
-			<span class="data"><b>${objData.grd[8]}</b>/100 (${objData.cty[8]}/${objData.tna[6][0]})</span></li>
+			<span class="data"><b>${objData.grd[8]}</b>/100 (${objData.cty[8]} / ${objData.tna[6]})</span></li>
 			<li><span class="sub"><b>说明</b></span><span class="data"><b>得分/满分 (排名/报考人数)</b></span></li>
 		</ul><div id='back' onclick='javascript:location.reload()'>返回</div>
 		<p id="ps">加粗分数计入总分<br />各科报考人数来自该科零分考生的排名</p><br />`
