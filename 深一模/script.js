@@ -73,10 +73,9 @@ function getData(obj) {
 function query() {
 	iNm = document.getElementById('name').value
 	if (iNm == '') {
-		alert('请输入要查询成绩考生的姓名')
+		alert('请输入考生姓名后查询！')
 	} else if (typeof (data.main[iNm]) !== 'object') {
-		alert('请输入一个云顶考生的姓名')
-		document.getElementById('name').value = ''
+		alert('查无此人！请核对后重试')
 	} else {
 		objData = getData(iNm)
 		document.body.removeChild(document.getElementById('container'))
