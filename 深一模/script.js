@@ -1,4 +1,6 @@
 document.getElementById('querybtn').addEventListener('click', function () { query() })
+function setHTML(id, content) { document.getElementById(id).innerHTML = content }
+
 function getSel(obj) {
 	returnData = []
 	oSel = data.main[obj].sel
@@ -28,6 +30,8 @@ function getSel(obj) {
 	}
 	return returnData
 }
+
+// 整理查询对象的数据
 function getData(obj) {
 	oMn = data.main[obj].main
 	oSel = data.main[obj].sel
@@ -70,16 +74,17 @@ function getData(obj) {
 	}
 	return objData
 }
+// 查询
 function query() {
-	iNm = document.getElementById('name').value
+	iNm = document.getElementById('name').value;
 	if (iNm == '') {
-		alert('请输入要查询成绩考生的姓名')
+		alert('请输入要查询成绩考生的姓名');
 	} else if (typeof (data.main[iNm]) !== 'object') {
-		alert('请输入一个云顶考生的姓名')
-		document.getElementById('name').value = ''
+		alert('请输入一个云顶考生的姓名');
+		document.getElementById('name').value = '';
 	} else {
 		objData = getData(iNm)
-		document.body.removeChild(document.getElementById('container'))
+		document.body.removeChild(document.getElementById('container'));
 		document.getElementById('remove').parentNode.removeChild(document.getElementById('remove'))
 		document.body.innerHTML = `
 		<div id="header" style="height: 56px; background-color: #0088EE; padding: 18px;">
@@ -110,34 +115,7 @@ function query() {
 			<li><span class="sub">${getSel(iNm)[2][1]}</span>
 			<span class="data"><b>${objData.grd[8]}</b> / 100 (${objData.cty[8]} / ${objData.tna[6]})</span></li>
 			<li><span class="sub"><b>说明</b></span><span class="data"><b>得分/满分 (排名/报考人数)</b></span></li>
-		</ul>
-		<div id='buttons'>
-			<div id='copy' onclick='copy()'>复制</div>
-			<div id='back' onclick='javascript:location.reload()'>返回</div>
-		</div>
+		</ul><div id='back' onclick='javascript:location.reload()'>返回</div>
 		<p id="ps">加粗分数计入总分<br />各科报考人数来自该科零分考生的排名</p><br />`
 	}
-}
-function copy() {
-	copyText = `姓名：${objData.name}
-班级：高三 (${objData.classNum}) 班
-总分：${objData.grd[0]}/750 (${objData.cty[0]}/${objData.tna[0]})
-语文：${objData.grd[1]}/150 (${objData.cty[1]}/${objData.tna[1]})
-数学：${objData.grd[2]}/150 (${objData.cty[2]}/${objData.tna[2]})
-${getSel(iNm)[3][1]}：${objData.grd[3]}/150 (${objData.cty[3]}/${objData.tna[3]})
-${getSel(iNm)[0][1]}：${objData.grd[4]}/100 (${objData.cty[4]}/${objData.tna[4]})
-${getSel(iNm)[1][2]}：${objData.grd[5]}/100 (${objData.cty[5]}/${objData.tna[5]})
-${getSel(iNm)[1][1]}：${objData.grd[6]}/100 (${objData.cty[6]}/${objData.tna[5]})
-${getSel(iNm)[2][2]}：${objData.grd[7]}/100 (${objData.cty[7]}/${objData.tna[6]})
-${getSel(iNm)[2][1]}：${objData.grd[8]}/100 (${objData.cty[8]}/${objData.tna[6]})
-说明：得分/满分 (排名/报考人数)`
-	var tempArea = document.createElement("textarea")
-	tempArea.value = copyText
-	document.body.appendChild(tempArea)
-	tempArea.focus()
-	tempArea.select()
-	document.execCommand('copy')
-	document.body.removeChild(tempArea)
-	document.getElementById('copy').innerHTML = '复制成功'
-	setTimeout(function () { document.getElementById('copy').innerHTML = '复制' }, 1500)
 }

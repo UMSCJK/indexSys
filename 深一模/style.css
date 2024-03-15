@@ -6,9 +6,6 @@
 
 body {
 	height: 100vh;
-	min-width: 320px;
-	border-left: 1px solid gray;
-	border-right: 1px solid gray;
 }
 
 /* 宽>高 (电脑) */
@@ -27,55 +24,41 @@ body {
 	}
 }
 
-/* 极窄情况下启用进度条 */
-@media (max-width: 320px) {
-	body {
-		overflow-x: auto;
-	}
-}
-
 h1#title {
 	margin: 24px;
 	font-size: 24px;
 }
 
 div#container {
-	height: 240px;
-}
-
-div#buttons {
-	height: 40px;
-	margin: 16px 0;
-	text-align: center;
+	height: 200px;
 }
 
 div#querybtn,
-div#back,
-div#copy {
+div#back {
 	width: 108px;
 	height: 40px;
 	color: white;
+	display: block;
 	font-size: 20px;
+	margin-top: 8px;
 	transition: 0.1s;
 	line-height: 40px;
+	margin: 24px auto;
 	user-select: none;
 	text-align: center;
 	border-radius: 4px;
-	display: inline-block;
 	border: 1px solid gray;
 	background-color: #0080FF;
 }
 
 div#querybtn:active,
-div#back:active,
-div#copy:active {
+div#back:active {
 	box-shadow: none;
 	background-color: #0072FF;
 }
 
 div#querybtn:hover,
-div#back:hover,
-div#copy:hover {
+div#back:hover {
 	background-color: #0064FF;
 }
 
@@ -84,14 +67,15 @@ input#name {
 	font-size: 20px;
 	text-align: center;
 	border-radius: 4px;
-	margin-bottom: 12px;
 }
 
 ul#list li {
 	height: 40px;
-	display: flex;
 	padding: 0 16px 0 8px;
+	display: flex;
 	justify-content: space-between;
+	border-left: 1px solid darkgray;
+	border-right: 1px solid darkgray;
 	border-bottom: 1px solid darkgray;
 }
 
