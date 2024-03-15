@@ -1,6 +1,5 @@
 document.getElementById('querybtn').addEventListener('click', function () { query() })
 function setHTML(id, content) { document.getElementById(id).innerHTML = content }
-
 function getSel(obj) {
 	returnData = []
 	oSel = data.main[obj].sel
@@ -30,8 +29,6 @@ function getSel(obj) {
 	}
 	return returnData
 }
-
-// 整理查询对象的数据
 function getData(obj) {
 	oMn = data.main[obj].main
 	oSel = data.main[obj].sel
@@ -74,17 +71,16 @@ function getData(obj) {
 	}
 	return objData
 }
-// 查询
 function query() {
-	iNm = document.getElementById('name').value;
+	iNm = document.getElementById('name').value
 	if (iNm == '') {
-		alert('请输入要查询成绩考生的姓名');
+		alert('请输入要查询成绩考生的姓名')
 	} else if (typeof (data.main[iNm]) !== 'object') {
-		alert('请输入一个云顶考生的姓名');
-		document.getElementById('name').value = '';
+		alert('请输入一个云顶考生的姓名')
+		document.getElementById('name').value = ''
 	} else {
 		objData = getData(iNm)
-		document.body.removeChild(document.getElementById('container'));
+		document.body.removeChild(document.getElementById('container'))
 		document.getElementById('remove').parentNode.removeChild(document.getElementById('remove'))
 		document.body.innerHTML = `
 		<div id="header" style="height: 56px; background-color: #0088EE; padding: 18px;">
