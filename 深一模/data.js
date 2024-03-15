@@ -11,11 +11,9 @@ const sub = {
 	"bio": [26133, 26133, '生物', '生原'],
 	"pol": [14209, 6289, '政治', '政原'],
 	"geo": [11525, 10872, '地理', '地原']
-	// 科目：文考人数、理考人数、名、原
-	// “报考人数”来源于该科0分考生的排名数，有所偏差
+	// 科目：文考人数、理考人数、名、原；“报考人数”来源于该科0分考生的排名数，有所偏差
 }
-
-const data_structure = {
+/* const data_structure = {
 	"undefined": {
 		"cls": undefined,
 		"sel": ["undefined", "undefined", "undefined", "undefined"], // 选科 (ABC选科、外语)
@@ -34,9 +32,8 @@ const data_structure = {
 				"t": [undefined, undefined],                         // 选科赋分 (分数, 市排)
 			}
 		}
-	},
-}
-
+	}
+} */
 const data = {
 	"exam": "2024年深圳市高三年级第一次调研考试",
 	"title": ["2024年3月", "深圳市高三年级第一次调研考试"],
