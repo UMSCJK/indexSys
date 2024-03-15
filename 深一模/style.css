@@ -48,11 +48,12 @@ div#buttons {
 	text-align: center;
 }
 
-div#querybtn,
 div#back,
-div#copy {
+div#copy,
+div#querybtn {
 	width: 108px;
 	height: 40px;
+	margin: 0 8px;
 	color: white;
 	font-size: 20px;
 	transition: 0.1s;
@@ -65,16 +66,17 @@ div#copy {
 	background-color: #0080FF;
 }
 
+div#copy:active,
 div#querybtn:active,
-div#back:active,
-div#copy:active {
+div#back:active {
 	box-shadow: none;
 	background-color: #0072FF;
 }
 
-div#querybtn:hover,
+
 div#back:hover,
-div#copy:hover {
+div#copy:hover,
+div#querybtn:hover {
 	background-color: #0064FF;
 }
 
