@@ -153,11 +153,11 @@ i {
 
 	div.button,
 	div#header {
-		background-color: #993366;
+		background-color: #990066;
 	}
 
 	div.button:hover {
-		background-color: #990066;
+		background-color: #993366;
 	}
 
 	p#ps,
