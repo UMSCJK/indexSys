@@ -81,10 +81,7 @@ function query() {
 		document.body.removeChild(document.getElementById('container'))
 		document.getElementById('remove').parentNode.removeChild(document.getElementById('remove'))
 		document.body.innerHTML = `
-		<div id="header" style="height: 56px; background-color: #0088EE; padding: 18px;">
-			<h1 style="color: white; font-weight: normal;font-size: 24px;">${data.title[0]}</h1>
-			<h2 style="color: white; font-weight: normal;font-size: 16px;">${data.title[1]}</h2>
-		</div>
+		<div id="header"><h1>${data.title[0]}</h1><h2>${data.title[1]}</h2></div>
 		<ul id="list">
 			<li><span class="sub">姓名</span>
 			<span class="data">${objData.name}</span></li>
@@ -111,8 +108,8 @@ function query() {
 			<li><span class="sub"><b>说明</b></span><span class="data"><b>得分/满分 (排名/报考人数)</b></span></li>
 		</ul>
 		<div id='buttons'>
-			<div id='copy' onclick='copy()'>复制</div>
-			<div id='back' onclick='javascript:location.reload()'>返回</div>
+			<div id='copy' class="button" onclick='copy()'>复制</div>
+			<div id='back' class="button" onclick='javascript:location.reload()'>返回</div>
 		</div>
 		<p id="ps">加粗分数计入总分<br />各科报考人数来自该科零分考生的排名</p><br />`
 	}

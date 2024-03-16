@@ -6,8 +6,8 @@
 
 body {
 	min-width: 320px;
-	border-left: 1px solid gray;
-	border-right: 1px solid gray;
+	border-left: 1px solid #808080;
+	border-right: 1px solid #808080;
 }
 
 /* 宽>高 (电脑) */
@@ -21,6 +21,7 @@ body {
 /* 宽<=高 (手机) */
 @media (orientation: portrait) {
 	body {
+		border: 0;
 		width: 100vw;
 		overflow-x: hidden;
 	}
@@ -42,42 +43,43 @@ div#container {
 	height: 256px;
 }
 
+div#header {
+	height: 56px;
+	padding: 18px;
+}
+
+div#header h1 {
+	color: #FFFFFF;
+	font-weight: normal;
+	font-size: 24px;
+}
+
+div#header h2 {
+	color: #FFFFFF;
+	font-weight: normal;
+	font-size: 16px;
+}
+
 div#buttons {
 	height: 40px;
 	margin: 16px 0;
 	text-align: center;
 }
 
-div#back,
-div#copy,
-div#querybtn {
+div.button {
 	width: 108px;
 	height: 40px;
 	margin: 0 8px;
-	color: white;
 	font-size: 20px;
 	transition: 0.1s;
+	color: #FFFFFF;
 	line-height: 40px;
-	user-select: none;
 	text-align: center;
 	border-radius: 4px;
 	display: inline-block;
-	border: 1px solid gray;
-	background-color: #0080FF;
-}
-
-div#copy:active,
-div#querybtn:active,
-div#back:active {
-	box-shadow: none;
-	background-color: #0072FF;
-}
-
-
-div#back:hover,
-div#copy:hover,
-div#querybtn:hover {
-	background-color: #0064FF;
+	border: 1px solid #808080;
+	-webkit-user-select: none;
+	user-select: none;
 }
 
 input#name {
@@ -93,21 +95,73 @@ ul#list li {
 	display: flex;
 	padding: 0 16px 0 8px;
 	justify-content: space-between;
-	border-bottom: 1px solid darkgray;
+	border-bottom: 1px solid #808080;
 }
 
 ul#list li span {
 	height: 40px;
-	color: gray;
 	font-size: 16px;
 	line-height: 40px;
 }
 
 p#ps {
-	color: gray;
 	text-align: center;
 }
 
 i {
 	font-style: normal;
+}
+
+@media (prefers-color-scheme: light) {
+
+	body,
+	input#name {
+		background-color: #FFFFFF;
+	}
+
+	h1#title,
+	input#name {
+		color: #000000;
+	}
+
+	div.button,
+	div#header {
+		background-color: #0080FF;
+	}
+
+	div.button:hover {
+		background-color: #0072FF;
+	}
+
+	p#ps,
+	ul#list li span {
+		color: #808080;
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+
+	body,
+	input#name {
+		background-color: #333333;
+	}
+
+	h1#title,
+	input#name {
+		color: #FFFFFF;
+	}
+
+	div.button,
+	div#header {
+		background-color: #993366;
+	}
+
+	div.button:hover {
+		background-color: #990066;
+	}
+
+	p#ps,
+	ul#list li span {
+		color: #CCCCCC;
+	}
 }
