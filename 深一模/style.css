@@ -1,37 +1,24 @@
 * {
 	margin: 0;
 	padding: 0;
+	font-style: normal;
 	font-family: '微软雅黑', Arial, Helvetica, sans-serif;
 }
 
 body {
 	min-width: 320px;
-	border-left: 1px solid gray;
-	border-right: 1px solid gray;
+	border-left: 1px solid #666;
+	border-right: 1px solid #666;
+	/* 隐藏纵向滚动条但保留其功能 */
+	/* IE & Edge */
+	scrollbar-width: none;
+	/* Firefox */
+	-ms-overflow-style: none;
 }
 
-/* 宽>高 (电脑) */
-@media (orientation: landscape) {
-	body {
-		width: 400px;
-		margin: auto;
-	}
-}
-
-/* 宽<=高 (手机) */
-@media (orientation: portrait) {
-	body {
-		border: 0;
-		width: 100vw;
-		overflow-x: hidden;
-	}
-}
-
-/* 极窄情况下启用进度条 */
-@media (max-width: 320px) {
-	body {
-		overflow-x: auto;
-	}
+/* 隐藏纵向滚动条但保留其功能 (Chrome, Safari, Opera) */
+body::-webkit-scrollbar {
+	display: none;
 }
 
 h1#title {
@@ -48,42 +35,49 @@ div#header {
 	padding: 18px;
 }
 
-div#header h1 {
-	color: white;
+div.button,
+div#header h1,
+div#header h2 {
+	color: #fff;
 	font-weight: normal;
+}
+
+div#header h1 {
 	font-size: 24px;
 }
 
 div#header h2 {
-	color: white;
-	font-weight: normal;
 	font-size: 16px;
 }
 
-div#buttons {
+div#buttons,
+div.button,
+input#name,
+ul#list li,
+ul#list li span {
 	height: 40px;
+}
+
+div#buttons {
 	margin: 16px 0;
 	text-align: center;
 }
 
 div.button {
 	width: 108px;
-	height: 40px;
 	margin: 0 8px;
 	font-size: 20px;
 	transition: 0.1s;
-	color: white;
 	line-height: 40px;
 	text-align: center;
 	border-radius: 4px;
 	display: inline-block;
-	border: 1px solid gray;
+	border: 1px solid #666;
 	-webkit-user-select: none;
 	user-select: none;
 }
 
 input#name {
-	height: 40px;
 	font-size: 20px;
 	text-align: center;
 	border-radius: 4px;
@@ -91,15 +85,13 @@ input#name {
 }
 
 ul#list li {
-	height: 40px;
 	display: flex;
-	padding: 0 16px 0 8px;
+	padding: 0 8px;
 	justify-content: space-between;
-	border-bottom: 1px solid gray;
+	border-bottom: 1px solid #666;
 }
 
 ul#list li span {
-	height: 40px;
 	font-size: 16px;
 	line-height: 40px;
 }
@@ -108,60 +100,87 @@ p#ps {
 	text-align: center;
 }
 
-i {
-	font-style: normal;
+/* 宽>高 (横屏) */
+@media (orientation: landscape) {
+	body {
+		width: 400px;
+		margin: auto;
+	}
+}
+
+/* 宽<=高 (竖屏) */
+@media (orientation: portrait) {
+	body {
+		border: 0;
+		width: 100vw;
+		overflow-x: hidden;
+	}
+}
+
+/* 极窄时重启横向滚动条 */
+@media (max-width: 320px) {
+	body {
+		overflow-x: auto;
+	}
 }
 
 @media (prefers-color-scheme: light) {
 
 	body,
 	input#name {
-		background-color: white;
+		background-color: #fff;
+	}
+
+	p#ps,
+	ul#list li span,
+	input#name::placeholder {
+		color: #999;
 	}
 
 	h1#title,
 	input#name {
-		color: black;
+		color: #000;
 	}
 
 	div.button,
 	div#header {
-		background-color: #0080FF;
+		background-color: #09f;
 	}
 
 	div.button:hover {
-		background-color: #0072FF;
+		background-color: #06f;
 	}
 
-	p#ps,
-	ul#list li span {
-		color: gray;
-	}
 }
 
 @media (prefers-color-scheme: dark) {
 
-	body,
-	input#name {
+	body {
 		background-color: #333;
+	}
+
+	input#name {
+		background-color: #666;
+	}
+
+	p#ps,
+	ul#list li span,
+	input#name::placeholder {
+		color: #ccc;
 	}
 
 	h1#title,
 	input#name {
-		color: white;
+		color: #fff;
 	}
 
 	div.button,
 	div#header {
-		background-color: #906;
+		background-color: #06c;
 	}
 
 	div.button:hover {
-		background-color: #936;
+		background-color: #03c;
 	}
 
-	p#ps,
-	ul#list li span {
-		color: #ccc;
-	}
 }
