@@ -3,6 +3,8 @@
 	padding: 0;
 	font-style: normal;
 	font-family: '微软雅黑', Arial, Helvetica, sans-serif;
+	-webkit-user-select: none;
+	user-select: none;
 }
 
 body {
@@ -11,13 +13,13 @@ body {
 	border-right: 1px solid #666;
 }
 
-h1#title {
-	margin: 24px;
-	font-size: 24px;
+body::-webkit-scrollbar {
+	display: none;
 }
 
-div#container {
-	height: 256px;
+h1#title {
+	margin: 8px;
+	font-size: 24px;
 }
 
 div#header {
@@ -54,11 +56,9 @@ div.button {
 	transition: 0.1s;
 	line-height: 40px;
 	text-align: center;
-	border-radius: 4px;
+	border-radius: 8px;
 	display: inline-block;
 	border: 1px solid #666;
-	-webkit-user-select: none;
-	user-select: none;
 }
 
 input#name {
@@ -67,12 +67,14 @@ input#name {
 	text-align: center;
 	border-radius: 4px;
 	margin-bottom: 12px;
+	-webkit-user-select: text;
+	user-select: text;
 }
 
 ul#list li {
 	height: 40px;
 	display: flex;
-	padding: 0 16px 0 8px;
+	padding: 0 8px;
 	justify-content: space-between;
 	border-bottom: 1px solid #666;
 }
@@ -92,6 +94,7 @@ p#ps {
 	body {
 		width: 400px;
 		margin: auto;
+		border-bottom: 1px solid #666;
 	}
 }
 
@@ -131,11 +134,11 @@ p#ps {
 
 	div.button,
 	div#header {
-		background-color: #09f;
+		background-color: #06f;
 	}
 
 	div.button:hover {
-		background-color: #06f;
+		background-color: #05f;
 	}
 }
 
@@ -165,6 +168,6 @@ p#ps {
 	}
 
 	div.button:hover {
-		background-color: #03c;
+		background-color: #05c;
 	}
 }
