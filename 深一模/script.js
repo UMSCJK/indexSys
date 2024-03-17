@@ -78,8 +78,6 @@ function query() {
 		alert('查无此人！请核对后重试')
 	} else {
 		objData = getData(iNm)
-		document.body.removeChild(document.getElementById('container'))
-		document.getElementById('remove').parentNode.removeChild(document.getElementById('remove'))
 		document.body.innerHTML = `
 		<div id="header"><h1>${data.title[0]}</h1><h2>${data.title[1]}</h2></div>
 		<ul id="list">
