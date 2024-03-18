@@ -132,13 +132,16 @@ p#ps {
 		color: #000;
 	}
 
-	div.button,
 	div#header {
 		background-color: #06f;
 	}
 
+	div.button {
+		background: linear-gradient(to bottom, #06f 75%, #03F);
+	}
+
 	div.button:hover {
-		background-color: #05f;
+		background: linear-gradient(to bottom, #05f 75%, #02F);
 	}
 }
 
@@ -162,12 +165,15 @@ p#ps {
 		color: #fff;
 	}
 
-	div.button,
 	div#header {
 		background-color: #06c;
 	}
 
+	div.button {
+		background: linear-gradient(to bottom, #06c 75%, #03c);
+	}
+
 	div.button:hover {
-		background-color: #05c;
+		background: linear-gradient(to bottom, #05c 75%, #02c);
 	}
 }
