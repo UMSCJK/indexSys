@@ -1,31 +1,16 @@
-document.getElementById('querybtn').addEventListener('click', function () { query() })
 function getSel(obj) {
 	returnData = []
 	oSel = data.main[obj].sel
-	if (oSel[0] == 'phy') {
-		returnData[0] = ['phy', '物理', 1]
-	} else if (oSel[0] == 'his') {
-		returnData[0] = ['his', '历史', 0]
-	}
-	if (oSel[1] == 'geo') {
-		returnData[1] = ['geo', '地理', '地原']
-	} else if (oSel[1] == 'che') {
-		returnData[1] = ['che', '化学', '化原']
-	}
-	if (oSel[2] == 'bio') {
-		returnData[2] = ['bio', '生物', '生原']
-	} else if (oSel[2] == 'pol') {
-		returnData[2] = ['pol', '政治', '政原']
-	} else if (oSel[2] == 'geo') {
-		returnData[2] = ['geo', '地理', '地原']
-	}
-	if (oSel[3] == 'eng') {
-		returnData[3] = ['eng', '英语']
-	} else if (oSel[3] == 'jap') {
-		returnData[3] = ['jap', '日语']
-	} else if (oSel[3] == 'rus') {
-		returnData[3] = ['rus', '俄语']
-	}
+		 if (oSel[0] == 'phy') { returnData[0] = ['phy', '物理', 1] }
+	else if (oSel[0] == 'his') { returnData[0] = ['his', '历史', 0] }
+		 if (oSel[1] == 'geo') { returnData[1] = ['geo', '地理', '地原'] }
+	else if (oSel[1] == 'che') { returnData[1] = ['che', '化学', '化原'] }
+		 if (oSel[2] == 'bio') { returnData[2] = ['bio', '生物', '生原'] }
+	else if (oSel[2] == 'pol') { returnData[2] = ['pol', '政治', '政原'] }
+	else if (oSel[2] == 'geo') { returnData[2] = ['geo', '地理', '地原'] }
+		 if (oSel[3] == 'eng') { returnData[3] = ['eng', '英语'] }
+	else if (oSel[3] == 'jap') { returnData[3] = ['jap', '日语'] }
+	else if (oSel[3] == 'rus') { returnData[3] = ['rus', '俄语'] }
 	return returnData
 }
 function getData(obj) {
@@ -36,28 +21,9 @@ function getData(obj) {
 		"schoolName": data.schoolName,
 		"classNum": data.main[obj].cls,
 		"name": obj,
-		"grd": [        // 分数
-			oMn.t.t[0], // 总分
-			oMn.y.o[0], // 语文
-			oMn.s.o[0], // 数学
-			oMn.w.o[0], // 外语
-			oMn.a.o[0], // A科
-			oMn.b.o[0], // B科原
-			oMn.b.t[0], // B科
-			oMn.c.o[0], // C科原
-			oMn.c.t[0], // C科
-		],
-		"cty": [        // 排名
-			oMn.t.t[1], // 总分
-			oMn.y.o[1], // 语文
-			oMn.s.o[1], // 数学
-			oMn.w.o[1], // 外语
-			oMn.a.o[1], // A科
-			oMn.b.o[1], // B科原
-			oMn.b.t[1], // B科
-			oMn.c.o[1], // C科原
-			oMn.c.t[1], // C科
-		],
+		// 分数、排名：总分、语文、数学、外语、A科、B科原、B科、C科原、C科
+		"grd": [oMn.t.t[0], oMn.y.o[0], oMn.s.o[0], oMn.w.o[0], oMn.a.o[0], oMn.b.o[0], oMn.b.t[0], oMn.c.o[0], oMn.c.t[0]],
+		"cty": [oMn.t.t[1], oMn.y.o[1], oMn.s.o[1], oMn.w.o[1], oMn.a.o[1], oMn.b.o[1], oMn.b.t[1], oMn.c.o[1], oMn.c.t[1]],
 		"tna": [                                       // 各科总报考人数
 			sub.tot[getSel(obj)[0][2]],                // 总分
 			sub.chn[getSel(obj)[0][2]],                // 语文
@@ -65,18 +31,16 @@ function getData(obj) {
 			sub[getSel(obj)[3][0]][getSel(obj)[0][2]], // 外语
 			sub[getSel(obj)[0][0]][getSel(obj)[0][2]], // A科
 			sub[getSel(obj)[1][0]][getSel(obj)[0][2]], // B科
-			sub[getSel(obj)[2][0]][getSel(obj)[0][2]], // C科
+			sub[getSel(obj)[2][0]][getSel(obj)[0][2]]  // C科
 		]
 	}
 	return objData
 }
 function query() {
 	iNm = document.getElementById('name').value
-	if (iNm == '') {
-		alert('请输入考生姓名后查询！')
-	} else if (typeof (data.main[iNm]) !== 'object') {
-		alert('查无此人！请核对后重试')
-	} else {
+	if (iNm == '') { alert('请输入考生姓名后查询！') }
+	else if (typeof (data.main[iNm]) !== 'object') { alert('查无此人！请核对后重试') }
+	else {
 		objData = getData(iNm)
 		document.body.innerHTML = `
 		<div id="header"><h1>${data.title[0]}</h1><h2>${data.title[1]}</h2></div>
