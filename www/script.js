@@ -1,6 +1,6 @@
 function getSel(obj) {
 	returnData = []
-	oSel = data.main[obj].sel
+	oSel = szme1.main[obj].sel
 		 if (oSel[0] == 'phy') { returnData[0] = ['phy', '物理', 1] }
 	else if (oSel[0] == 'his') { returnData[0] = ['his', '历史', 0] }
 		 if (oSel[1] == 'geo') { returnData[1] = ['geo', '地理', '地原'] }
@@ -14,24 +14,24 @@ function getSel(obj) {
 	return returnData
 }
 function getData(obj) {
-	oMn = data.main[obj].main
-	oSel = data.main[obj].sel
+	oMn = szme1.main[obj].main
+	oSel = szme1.main[obj].sel
 	var objData = {
-		"exam": data.exam,
-		"schoolName": data.schoolName,
-		"classNum": data.main[obj].cls,
+		"exam": szme1.exam,
+		"schoolName": szme1.schoolName,
+		"classNum": szme1.main[obj].cls,
 		"name": obj,
 		// 分数、排名：总分、语文、数学、外语、A科、B科原、B科、C科原、C科
 		"grd": [oMn.t.t[0], oMn.y.o[0], oMn.s.o[0], oMn.w.o[0], oMn.a.o[0], oMn.b.o[0], oMn.b.t[0], oMn.c.o[0], oMn.c.t[0]],
 		"cty": [oMn.t.t[1], oMn.y.o[1], oMn.s.o[1], oMn.w.o[1], oMn.a.o[1], oMn.b.o[1], oMn.b.t[1], oMn.c.o[1], oMn.c.t[1]],
-		"tna": [                                       // 各科总报考人数
-			sub.tot[getSel(obj)[0][2]],                // 总分
-			sub.chn[getSel(obj)[0][2]],                // 语文
-			sub.mat[getSel(obj)[0][2]],                // 数学
-			sub[getSel(obj)[3][0]][getSel(obj)[0][2]], // 外语
-			sub[getSel(obj)[0][0]][getSel(obj)[0][2]], // A科
-			sub[getSel(obj)[1][0]][getSel(obj)[0][2]], // B科
-			sub[getSel(obj)[2][0]][getSel(obj)[0][2]]  // C科
+		"tna": [                                             // 各科总报考人数
+			szme1.sub.tot[getSel(obj)[0][2]],                // 总分
+			szme1.sub.chn[getSel(obj)[0][2]],                // 语文
+			szme1.sub.mat[getSel(obj)[0][2]],                // 数学
+			szme1.sub[getSel(obj)[3][0]][getSel(obj)[0][2]], // 外语
+			szme1.sub[getSel(obj)[0][0]][getSel(obj)[0][2]], // A科
+			szme1.sub[getSel(obj)[1][0]][getSel(obj)[0][2]], // B科
+			szme1.sub[getSel(obj)[2][0]][getSel(obj)[0][2]]  // C科
 		]
 	}
 	return objData
@@ -39,11 +39,11 @@ function getData(obj) {
 function query() {
 	iNm = document.getElementById('name').value
 	if (iNm == '') { alert('请输入考生姓名后查询！') }
-	else if (typeof (data.main[iNm]) !== 'object') { alert('查无此人！请核对后重试') }
+	else if (typeof (szme1.main[iNm]) !== 'object') { alert('查无此人！请核对后重试') }
 	else {
 		objData = getData(iNm)
 		document.body.innerHTML = `
-		<div id="header"><h1>${data.title[0]}</h1><h2>${data.title[1]}</h2></div>
+		<div id="header"><h1>${szme1.title[0]}</h1><h2>${szme1.title[1]}</h2></div>
 		<ul id="list">
 			<li><span class="sub">姓名</span>
 			<span class="data">${objData.name}</span></li>
