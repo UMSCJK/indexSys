@@ -48,20 +48,27 @@ div#buttons {
 	text-align: center;
 }
 
-div.button {
+div#row {
+	display: flex;
+	justify-content: space-between;
+}
+
+div.button,
+select#exams {
 	width: 108px;
 	height: 40px;
-	margin: 0 8px;
+	margin: 0 4px;
+	cursor: pointer;
 	font-size: 20px;
 	transition: 0.1s;
 	line-height: 40px;
 	text-align: center;
 	border-radius: 8px;
 	display: inline-block;
-	border: 1px solid #666;
 }
 
 input#name {
+	width: 226px;
 	height: 40px;
 	font-size: 20px;
 	text-align: center;
@@ -71,12 +78,21 @@ input#name {
 	user-select: text;
 }
 
+select#exams {
+	font-size: 16px;
+	background: linear-gradient(to bottom, #fff 75%, #ccc);
+}
+
+select#exams:hover {
+	background: linear-gradient(to bottom, #eee 75%, #bbb);
+}
+
 ul#list li {
 	height: 40px;
 	display: flex;
 	padding: 0 8px;
-	justify-content: space-between;
 	border-bottom: 1px solid #666;
+	justify-content: space-between;
 }
 
 ul#list li span {

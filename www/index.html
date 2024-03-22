@@ -22,7 +22,16 @@
 	<div id="container">
 		<h1 id="title">深圳市云顶学校<br />深一模成绩查询</h1>
 		<input type="text" id="name" placeholder="请输入姓名"><br />
-		<div id="querybtn" class="button" onclick="query()">查询</div>
+		<div id="row">
+			<select name="exams" id="exams" title="exams">
+				<!-- <option value="null" selected>选择考试</option> -->
+				<option value="s3t1fi" disabled>高三上期末</option>
+				<option value="szme1" selected>深圳市一模</option>
+				<option value="szme2" disabled>深圳市二模</option>
+				<option value="gzme1" disabled>广州市一模</option>
+			</select>
+			<div id="querybtn" class="button" onclick="query()">查询</div>
+		</div>
 	</div>
 	<script src="data.js"></script>
 	<script src="script.js"></script>
