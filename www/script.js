@@ -1,7 +1,9 @@
 function getExam() {
-	selExam = document.getElementById('exams').value
+	if (document.getElementById('exams')) {
+		selExam = document.getElementById('exams').value
+	}
 	exams = {
-		// 's3t1fi': s3t1fi,
+		's3t1fi': s3t1fi,
 		'szme1': szme1,
 		// 'szme2': szme2,
 		// 'gzme1': gzme1,
@@ -11,14 +13,14 @@ function getExam() {
 function getSel(obj) {
 	returnData = []
 	oSel = getExam().main[obj].sel
-		 if (oSel[0] == 'phy') { returnData[0] = ['phy', '物理', 1] }
+	if (oSel[0] == 'phy') { returnData[0] = ['phy', '物理', 1] }
 	else if (oSel[0] == 'his') { returnData[0] = ['his', '历史', 0] }
-		 if (oSel[1] == 'geo') { returnData[1] = ['geo', '地理', '地原'] }
+	if (oSel[1] == 'geo') { returnData[1] = ['geo', '地理', '地原'] }
 	else if (oSel[1] == 'che') { returnData[1] = ['che', '化学', '化原'] }
-		 if (oSel[2] == 'bio') { returnData[2] = ['bio', '生物', '生原'] }
+	if (oSel[2] == 'bio') { returnData[2] = ['bio', '生物', '生原'] }
 	else if (oSel[2] == 'pol') { returnData[2] = ['pol', '政治', '政原'] }
 	else if (oSel[2] == 'geo') { returnData[2] = ['geo', '地理', '地原'] }
-		 if (oSel[3] == 'eng') { returnData[3] = ['eng', '英语'] }
+	if (oSel[3] == 'eng') { returnData[3] = ['eng', '英语'] }
 	else if (oSel[3] == 'jap') { returnData[3] = ['jap', '日语'] }
 	else if (oSel[3] == 'rus') { returnData[3] = ['rus', '俄语'] }
 	return returnData
