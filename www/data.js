@@ -9,7 +9,6 @@ const s3t1mt = {
 		"mat": [134, 134, "数学"],
 		"eng": [102, 102, "英语"],
 		"jap": [32, 32, "日语"],
-		"rus": [null, null, "俄语"],
 		"his": [59, 59, "历史"],
 		"phy": [75, 75, "物理"],
 		"che": [75, 75, "化学", "化原"],
@@ -154,7 +153,6 @@ const s3t1mt = {
 		"陈煜瀚": { "cls": 5, "sel": ["phy", "che", "geo", "eng"], "main": { "t": { "t": [279, 90] }, "y": { "o": [80, 36] }, "s": { "o": [45, 53] }, "w": { "o": [45, 53] }, "a": { "o": [23, 60] }, "b": { "o": [11, 72], "t": [33, 72] }, "c": { "o": [47, 33], "t": [54, 33] } } }
 	}
 }
-
 const s3t1fi = {
 	"exam": "深圳市云顶学校高中部2023-2024学年上学期高三期末考试",
 	"title": ["深圳市云顶学校", "高三年级上学期期末考试 (2024年1月)"],
@@ -166,7 +164,6 @@ const s3t1fi = {
 		"mat": [125, 125, "数学"],
 		"eng": [93, 93, "英语"],
 		"jap": [32, 32, "日语"],
-		"rus": [null, null, "俄语"],
 		"his": [51, 51, "历史"],
 		"phy": [74, 74, "物理"],
 		"che": [74, 74, "化学", "化原"],
@@ -302,7 +299,6 @@ const s3t1fi = {
 		"陈煜瀚": { "cls": 5, "sel": ["phy", "che", "geo", "eng"], "main": { "t": { "t": [298, 92] }, "y": { "o": [73, 72] }, "s": { "o": [43, 81] }, "w": { "o": [66, 39] }, "a": { "o": [21, 52] }, "b": { "o": [11, 73], "t": [31, 73] }, "c": { "o": [58, 33], "t": [64, 33] } } }
 	}
 }
-
 const szme1 = {
 	"exam": "2024年深圳市高三年级第一次调研考试",
 	"title": ["深圳市", "高三年级第一次调研考试 (2024年3月)"],
@@ -314,7 +310,6 @@ const szme1 = {
 		"mat": [15240, 38454, "数学"],
 		"eng": [12754, 34749, "英语"],
 		"jap": [2306, 3493, "日语"],
-		"rus": [null, null, "俄语"],
 		"his": [15241, 15241, "历史"],
 		"phy": [38393, 38393, "物理"],
 		"che": [33469, 33469, "化学", "化原"],
@@ -478,26 +473,26 @@ const szme1 = {
 		"杨明浩": { "cls": 5, "sel": ["phy", "che", "bio", "eng"], "main": { "t": { "t": [0, 38528] }, "y": { "o": [0, 38443] }, "s": { "o": [0, 38454] }, "w": { "o": [0, 34749] }, "a": { "o": [0, 38393] }, "b": { "o": [0, 33469], "t": [0, 33469] }, "c": { "o": [0, 26133], "t": [0, 26133] } } }
 	}
 }
-
 /* const data_structure = {
-	"undefined": {
-		"cls": undefined,
-		"sel": ["undefined", "undefined", "undefined", "undefined"], // 选科 (ABC选科、外语)
+	"null": {
+		"cls": null,
+		"sel": ["null", "null", "null", "null"], // 选科 (ABC选科、外语)
 		"main": {
-			"t": { "t": [undefined, undefined] },                    // 赋分总分 (分数, 市排)
-			"y": { "o": [undefined, undefined] },                    // 语文原分 (分数, 市排)
-			"s": { "o": [undefined, undefined] },                    // 数学原分 (分数, 市排)
-			"w": { "o": [undefined, undefined] },                    // 外语原分 (分数, 市排)
-			"a": { "o": [undefined, undefined] },                    // 物历原分 (分数, 市排)
+			"t": { "t": [null, null] },                    // 赋分总分 (分数, 市排)
+			"y": { "o": [null, null] },                    // 语文原分 (分数, 市排)
+			"s": { "o": [null, null] },                    // 数学原分 (分数, 市排)
+			"w": { "o": [null, null] },                    // 外语原分 (分数, 市排)
+			"a": { "o": [null, null] },                    // 物历原分 (分数, 市排)
 			"b": {                                                   // B科成绩
-				"o": [undefined, undefined],                         // B科原分 (分数, 市排)
-				"t": [undefined, undefined]                          // B科赋分 (分数, 市排)
+				"o": [null, null],                         // B科原分 (分数, 市排)
+				"t": [null, null]                          // B科赋分 (分数, 市排)
 			},
 			"c": {                                                   // C科成绩
-				"o": [undefined, undefined],                         // C科原分 (分数, 市排)
-				"t": [undefined, undefined]                          // C科赋分 (分数, 市排)
+				"o": [null, null],                         // C科原分 (分数, 市排)
+				"t": [null, null]                          // C科赋分 (分数, 市排)
 			}
 		}
 	}
 } */
+// "null": { "cls": null, "sel": ["null", "null", "null", "null"], "main": { "t": { "t": [null, null] }, "y": { "o": [null, null] }, "s": { "o": [null, null] }, "w": { "o": [null, null] }, "a": { "o": [null, null] }, "b": { "o": [null, null], "t": [null, null] }, "c": { "o": [null, null], "t": [null, null] } } },
 // sub：科目：文考人数、理考人数、名、原；“报考人数”来源于该科0分考生的排名数，有所偏差
