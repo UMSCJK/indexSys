@@ -3,6 +3,7 @@ function getExam() {
 		selExam = document.getElementById('exams').value
 	}
 	exams = {
+		's3t1mt': s3t1mt,
 		's3t1fi': s3t1fi,
 		'szme1': szme1,
 		// 'szme2': szme2,
