@@ -478,18 +478,18 @@ const szme1 = {
 		"cls": null,
 		"sel": ["null", "null", "null", "null"], // 选科 (ABC选科、外语)
 		"main": {
-			"t": { "t": [null, null] },                    // 赋分总分 (分数, 市排)
-			"y": { "o": [null, null] },                    // 语文原分 (分数, 市排)
-			"s": { "o": [null, null] },                    // 数学原分 (分数, 市排)
-			"w": { "o": [null, null] },                    // 外语原分 (分数, 市排)
-			"a": { "o": [null, null] },                    // 物历原分 (分数, 市排)
-			"b": {                                                   // B科成绩
-				"o": [null, null],                         // B科原分 (分数, 市排)
-				"t": [null, null]                          // B科赋分 (分数, 市排)
+			"t": { "t": [null, null] },          // 赋分总分 (分数, 市排)
+			"y": { "o": [null, null] },          // 语文原分 (分数, 市排)
+			"s": { "o": [null, null] },          // 数学原分 (分数, 市排)
+			"w": { "o": [null, null] },          // 外语原分 (分数, 市排)
+			"a": { "o": [null, null] },          // 物历原分 (分数, 市排)
+			"b": {                               // B科成绩
+				"o": [null, null],               // B科原分 (分数, 市排)
+				"t": [null, null]                // B科赋分 (分数, 市排)
 			},
-			"c": {                                                   // C科成绩
-				"o": [null, null],                         // C科原分 (分数, 市排)
-				"t": [null, null]                          // C科赋分 (分数, 市排)
+			"c": {                               // C科成绩
+				"o": [null, null],               // C科原分 (分数, 市排)
+				"t": [null, null]                // C科赋分 (分数, 市排)
 			}
 		}
 	}
