@@ -51,7 +51,7 @@ function getData(obj) {
 function query() {
 	iNm = document.getElementById('name').value
 	if (iNm == '') { alert('请输入考生姓名后查询！') }
-	else if (typeof (getExam().main[iNm]) !== 'object') { alert('查无此人！请核对后重试') }
+	else if (typeof (getExam().main[iNm]) !== 'object') { alert('无此人成绩！请核对后重试') }
 	else {
 		objData = getData(iNm)
 		document.body.innerHTML = `
