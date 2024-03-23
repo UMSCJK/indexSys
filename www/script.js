@@ -31,6 +31,7 @@ function getData(obj) {
 	var objData = {
 		"exam": getExam().exam,
 		"schoolName": getExam().schoolName,
+		"grade": getExam().grade,
 		"classNum": getExam().main[obj].cls,
 		"name": obj,
 		// 分数、排名：总分、语文、数学、外语、A科、B科原、B科、C科原、C科
@@ -60,26 +61,26 @@ function query() {
 			<li><span class="sub">姓名</span>
 			<span class="data">${objData.name}</span></li>
 			<li><span class="sub">班级</span>
-			<span class="data">高三 (${objData.classNum}) 班</span></li>
-			<li><span class="sub">总分</span>
+			<span class="data">${objData.grade} (${objData.classNum}) 班</span></li>
+			<li><span class="sub"><b>总分</b></span>
 			<span class="data"><b>${objData.grd[0]}</b> / 750 (${objData.cty[0]} / ${objData.tna[0]})</span></li>
-			<li><span class="sub">语文</span>
+			<li><span class="sub"><b>语文</b></span>
 			<span class="data"><b>${objData.grd[1]}</b> / 150 (${objData.cty[1]} / ${objData.tna[1]})</span></li>
-			<li><span class="sub">数学</span>
+			<li><span class="sub"><b>数学</b></span>
 			<span class="data"><b>${objData.grd[2]}</b> / 150 (${objData.cty[2]} / ${objData.tna[2]})</span></li>
-			<li><span class="sub">${getSel(iNm)[3][1]}</span>
+			<li><span class="sub"><b>${getSel(iNm)[3][1]}</b></span>
 			<span class="data"><b>${objData.grd[3]}</b> / 150 (${objData.cty[3]} / ${objData.tna[3]})</span></li>
-			<li><span class="sub">${getSel(iNm)[0][1]}</span>
+			<li><span class="sub"><b>${getSel(iNm)[0][1]}</b></span>
 			<span class="data"><b>${objData.grd[4]}</b> / 100 (${objData.cty[4]} / ${objData.tna[4]})</span></li>
-			<li><span class="sub">${getSel(iNm)[1][2]}</span>
+			<li><span class="sub"><i>${getSel(iNm)[1][2]}</i></span>
 			<span class="data"><i>${objData.grd[5]}</i> / 100 (${objData.cty[5]} / ${objData.tna[5]})</span></li>
-			<li><span class="sub">${getSel(iNm)[1][1]}</span>
+			<li><span class="sub"><b>${getSel(iNm)[1][1]}</b></span>
 			<span class="data"><b>${objData.grd[6]}</b> / 100 (${objData.cty[6]} / ${objData.tna[5]})</span></li>
-			<li><span class="sub">${getSel(iNm)[2][2]}</span>
+			<li><span class="sub"><i>${getSel(iNm)[2][2]}</i></span>
 			<span class="data"><i>${objData.grd[7]}</i> / 100 (${objData.cty[7]} / ${objData.tna[6]})</span></li>
-			<li><span class="sub">${getSel(iNm)[2][1]}</span>
+			<li><span class="sub"><b>${getSel(iNm)[2][1]}</b></span>
 			<span class="data"><b>${objData.grd[8]}</b> / 100 (${objData.cty[8]} / ${objData.tna[6]})</span></li>
-			<li><span class="sub"><b>说明</b></span><span class="data"><b>得分/满分 (排名/报考人数)</b></span></li>
+			<li><span class="sub">说明</span><span class="data">得分/满分 (排名/报考人数)</span></li>
 		</ul>
 		<div id='buttons'>
 			<div id='copy' class="button" onclick='copy()'>复制</div>
