@@ -2,9 +2,11 @@
 	margin: 0;
 	padding: 0;
 	font-style: normal;
+	text-align: center;
 	font-family: '微软雅黑', Arial, Helvetica, sans-serif;
 	-webkit-user-select: none;
 	user-select: none;
+
 }
 
 body {
@@ -32,18 +34,14 @@ div#header h2 {
 	font-weight: normal;
 }
 
-div#header h1 {
-	font-size: 24px;
-}
-
+div#header h1,
 div#header h2 {
-	font-size: 16px;
+	text-align: left;
 }
 
 div#buttons {
 	height: 40px;
 	margin: 16px 0;
-	text-align: center;
 }
 
 div#row {
@@ -60,7 +58,6 @@ select#exams {
 	font-size: 20px;
 	transition: 0.1s;
 	line-height: 40px;
-	text-align: center;
 	border-radius: 8px;
 	display: inline-block;
 }
@@ -69,7 +66,6 @@ input#name {
 	width: 226px;
 	height: 40px;
 	font-size: 20px;
-	text-align: center;
 	border-radius: 4px;
 	margin-bottom: 12px;
 	-webkit-user-select: text;
@@ -98,34 +94,8 @@ ul#list li span {
 	line-height: 40px;
 }
 
-p#ps {
-	text-align: center;
-}
-
-/* 宽>高 (横屏) */
-@media (orientation: landscape) {
-	body {
-		width: 400px;
-		margin: auto;
-		border-bottom: 1px solid #666;
-	}
-}
-
-/* 宽<=高 (竖屏) */
-@media (orientation: portrait) {
-	body {
-		border: 0;
-		width: 100vw;
-		overflow-x: hidden;
-	}
-}
-
-/* 极窄时重启横向滚动条 */
-@media (max-width: 320px) {
-	body {
-		overflow-x: auto;
-	}
-}
+/* p#ps {
+} */
 
 @media (prefers-color-scheme: light) {
 	body {
@@ -202,5 +172,30 @@ p#ps {
 
 	ul#list li {
 		border-bottom: 1px solid #666;
+	}
+}
+
+/* 宽 > 高 (横屏) */
+@media (orientation: landscape) {
+	body {
+		width: 400px;
+		margin: auto;
+		border-bottom: 1px solid #666;
+	}
+}
+
+/* 宽 <= 高 (竖屏) */
+@media (orientation: portrait) {
+	body {
+		border: 0;
+		width: 100vw;
+		overflow-x: hidden;
+	}
+}
+
+/* 极窄时重启横向滚动条 */
+@media (max-width: 320px) {
+	body {
+		overflow-x: auto;
 	}
 }

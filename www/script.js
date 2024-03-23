@@ -56,7 +56,7 @@ function query() {
 	else {
 		objData = getData(iNm)
 		document.body.innerHTML = `
-		<div id="header"><h1>${getExam().title[0]}</h1><h2>${getExam().title[1]}</h2></div>
+		<div id="header"><h1 style="font-size: 24px;">${getExam().title[0]}</h1><h2 style="font-size: 16px;">${getExam().title[1]}</h2></div>
 		<ul id="list">
 			<li><span class="sub">姓名</span>
 			<span class="data">${objData.name}</span></li>
@@ -86,7 +86,7 @@ function query() {
 			<div id='copy' class="button" onclick='copy()'>复制</div>
 			<div id='back' class="button" onclick='javascript:location.reload()'>返回</div>
 		</div>
-		<p id="ps">加粗分数计入总分<br />各科报考人数来自该科零分考生的排名</p><br />`
+		<p id="ps">加粗分数计入总分，市统考中<br />各科报考人数来自该科零分考生的排名</p><br />`
 	}
 }
 function copy() {
