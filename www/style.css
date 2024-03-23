@@ -9,8 +9,6 @@
 
 body {
 	min-width: 384px;
-	border-left: 1px solid #666;
-	border-right: 1px solid #666;
 }
 
 body::-webkit-scrollbar {
@@ -91,7 +89,6 @@ ul#list li {
 	height: 40px;
 	display: flex;
 	padding: 0 8px;
-	border-bottom: 1px solid #666;
 	justify-content: space-between;
 }
 
@@ -131,8 +128,12 @@ p#ps {
 }
 
 @media (prefers-color-scheme: light) {
+	body {
+		background-color: #fff;
+		border-left: 1px solid #999;
+		border-right: 1px solid #999;
+	}
 
-	body,
 	input#name {
 		background-color: #fff;
 	}
@@ -159,11 +160,17 @@ p#ps {
 	div.button:hover {
 		background: linear-gradient(to bottom, #05f 75%, #02F);
 	}
+
+	ul#list li {
+		border-bottom: 1px solid #999;
+	}
 }
 
 @media (prefers-color-scheme: dark) {
 	body {
 		background-color: #333;
+		border-left: 1px solid #666;
+		border-right: 1px solid #666;
 	}
 
 	input#name {
@@ -191,5 +198,9 @@ p#ps {
 
 	div.button:hover {
 		background: linear-gradient(to bottom, #05c 75%, #02c);
+	}
+
+	ul#list li {
+		border-bottom: 1px solid #666;
 	}
 }

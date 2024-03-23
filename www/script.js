@@ -80,7 +80,7 @@ function query() {
 			<span class="data"><i>${objData.grd[7]}</i> / 100 (${objData.cty[7]} / ${objData.tna[6]})</span></li>
 			<li><span class="sub"><b>${getSel(iNm)[2][1]}</b></span>
 			<span class="data"><b>${objData.grd[8]}</b> / 100 (${objData.cty[8]} / ${objData.tna[6]})</span></li>
-			<li><span class="sub">说明</span><span class="data">得分/满分 (排名/报考人数)</span></li>
+			<li><span class="sub"><b>说明</b></span><span class="data"><b>得分/满分 (排名/报考人数)</b></span></li>
 		</ul>
 		<div id='buttons'>
 			<div id='copy' class="button" onclick='copy()'>复制</div>
