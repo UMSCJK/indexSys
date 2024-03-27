@@ -139,3 +139,4 @@ function refresh() {
 		</div>
 	</div>`
 }
+window.onload = refresh
