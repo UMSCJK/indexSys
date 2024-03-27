@@ -85,14 +85,14 @@ function query() {
 		</ul>
 		<div id='buttons'>
 			<div id='copy' class="button" onclick='copy()'>复制</div>
-			<div id='back' class="button" onclick='javascript:location.reload()'>返回</div>
+			<div id='back' class="button" onclick='refresh()'>返回</div>
 		</div>
 		<p id="ps">加粗分数计入总分，市统考中<br />各科报考人数来自该科零分考生的排名</p><br />`
 	}
 }
 function copy() {
 	copyText = `姓名：${objData.name}
-班级：高三 (${objData.classNum}) 班
+班级：${objData.grade} (${objData.classNum}) 班
 总分：${objData.grd[0]}/750 (${objData.cty[0]}/${objData.tna[0]})
 语文：${objData.grd[1]}/150 (${objData.cty[1]}/${objData.tna[1]})
 数学：${objData.grd[2]}/150 (${objData.cty[2]}/${objData.tna[2]})
@@ -112,4 +112,30 @@ ${getSel(iNm)[2][1]}：${objData.grd[8]}/100 (${objData.cty[8]}/${objData.tna[6]
 	document.body.removeChild(tempArea)
 	document.getElementById('copy').innerHTML = '复制成功'
 	setTimeout(function () { document.getElementById('copy').innerHTML = '复制' }, 1500)
+}
+function refresh() {
+	document.body.innerHTML = `<style id="remove">
+		body {
+			border: 0;
+			height: 100vh;
+			display: flex;
+			text-align: center;
+			align-items: center;
+			justify-content: center;
+		}
+	</style>
+	<div id="container">
+		<h1 id="title">深圳市云顶学校<br />成绩查询系统</h1>
+		<input type="text" id="name" placeholder="请输入姓名"><br />
+		<div id="row">
+			<select name="exams" id="exams" title="exams">
+				<option value="s3t1mt">高三上期中</option>
+				<option value="s3t1fi">高三上期末</option>
+				<option value="szme1" selected>深圳市一模</option>
+				<option value="szme2" disabled>深圳市二模</option>
+				<option value="gzme1" disabled>广州市一模</option>
+			</select>
+			<div id="querybtn" class="button" onclick="query()">查询</div>
+		</div>
+	</div>`
 }
