@@ -94,9 +94,6 @@ ul#list li span {
 	line-height: 40px;
 }
 
-/* p#ps {
-} */
-
 @media (prefers-color-scheme: light) {
 	body {
 		background-color: #fff;

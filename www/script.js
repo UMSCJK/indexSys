@@ -64,44 +64,31 @@ function query() {
 		<h2 style="font-size: 16px;">${getExam().title[1]}</h2>
 	</div>
 	<ul id="list">
-		<li><span class="sub">姓名</span>
-			<span class="data">${objData.name}</span>
-		</li>
-		<li><span class="sub">班级</span>
-			<span class="data">${objData.grade} (${objData.classNum}) 班</span>
-		</li>
+		<li><span class="sub">姓名</span><span class="data">${objData.name}</span></li>
+		<li><span class="sub">班级</span><span class="data">${objData.grade} (${objData.classNum}) 班</span></li>
 		<li><span class="sub"><b>总分</b></span>
-			<span class="data"><b>${objData.grd[0]}</b> / 750 (${objData.cty[0]} / ${objData.tna[0]})</span>
-		</li>
+			<span class="data"><b>${objData.grd[0]}</b> / 750 (${objData.cty[0]} / ${objData.tna[0]})</span></li>
 		<li><span class="sub"><b>语文</b></span>
-			<span class="data"><b>${objData.grd[1]}</b> / 150 (${objData.cty[1]} / ${objData.tna[1]})</span>
-		</li>
+			<span class="data"><b>${objData.grd[1]}</b> / 150 (${objData.cty[1]} / ${objData.tna[1]})</span></li>
 		<li><span class="sub"><b>数学</b></span>
-			<span class="data"><b>${objData.grd[2]}</b> / 150 (${objData.cty[2]} / ${objData.tna[2]})</span>
-		</li>
+			<span class="data"><b>${objData.grd[2]}</b> / 150 (${objData.cty[2]} / ${objData.tna[2]})</span></li>
 		<li><span class="sub"><b>${getSel(iNm)[3][1]}</b></span>
-			<span class="data"><b>${objData.grd[3]}</b> / 150 (${objData.cty[3]} / ${objData.tna[3]})</span>
-		</li>
+			<span class="data"><b>${objData.grd[3]}</b> / 150 (${objData.cty[3]} / ${objData.tna[3]})</span></li>
 		<li><span class="sub"><b>${getSel(iNm)[0][1]}</b></span>
-			<span class="data"><b>${objData.grd[4]}</b> / 100 (${objData.cty[4]} / ${objData.tna[4]})</span>
-		</li>
+			<span class="data"><b>${objData.grd[4]}</b> / 100 (${objData.cty[4]} / ${objData.tna[4]})</span></li>
 		<li><span class="sub"><i>${getSel(iNm)[1][2]}</i></span>
-			<span class="data"><i>${objData.grd[5]}</i> / 100 (${objData.cty[5]} / ${objData.tna[5]})</span>
-		</li>
+			<span class="data"><i>${objData.grd[5]}</i> / 100 (${objData.cty[5]} / ${objData.tna[5]})</span></li>
 		<li><span class="sub"><b>${getSel(iNm)[1][1]}</b></span>
-			<span class="data"><b>${objData.grd[6]}</b> / 100 (${objData.cty[6]} / ${objData.tna[5]})</span>
-		</li>
+			<span class="data"><b>${objData.grd[6]}</b> / 100 (${objData.cty[6]} / ${objData.tna[5]})</span></li>
 		<li><span class="sub"><i>${getSel(iNm)[2][2]}</i></span>
-			<span class="data"><i>${objData.grd[7]}</i> / 100 (${objData.cty[7]} / ${objData.tna[6]})</span>
-		</li>
+			<span class="data"><i>${objData.grd[7]}</i> / 100 (${objData.cty[7]} / ${objData.tna[6]})</span></li>
 		<li><span class="sub"><b>${getSel(iNm)[2][1]}</b></span>
-			<span class="data"><b>${objData.grd[8]}</b> / 100 (${objData.cty[8]} / ${objData.tna[6]})</span>
-		</li>
+			<span class="data"><b>${objData.grd[8]}</b> / 100 (${objData.cty[8]} / ${objData.tna[6]})</span></li>
 		<li><span class="sub"><b>说明</b></span><span class="data"><b>得分/满分 (排名/报考人数)</b></span></li>
 	</ul>
 	<div id='buttons'>
 		<div id='copy' class="button" onclick='copy()'>复制</div>
-		<div id='back' class="button" onclick='refresh()'>返回</div>
+		<div id='back' class="button" onclick='back()'>返回</div>
 	</div>
 	<p id="ps">加粗分数计入总分，市统考中<br>各科报考人数来自该科零分考生的排名</p>
 	<br>
@@ -122,18 +109,22 @@ ${getSel(iNm)[2][2]}：${objData.grd[7]}/100 (${objData.cty[7]}/${objData.tna[6]
 ${getSel(iNm)[2][1]}：${objData.grd[8]}/100 (${objData.cty[8]}/${objData.tna[6]})
 说明：得分/满分 (排名/报考人数)`
 	var tempArea = document.createElement("textarea")
+	var tempScrollY = scrollY
 	tempArea.value = copyText
 	document.body.appendChild(tempArea)
 	tempArea.focus()
 	tempArea.select()
 	document.execCommand('copy')
 	document.body.removeChild(tempArea)
+	scroll(0, tempScrollY)
 	document.getElementById('copy').innerHTML = '复制成功'
 	setTimeout(function () {
-		document.getElementById('copy').innerHTML = '复制'
+		if (document.getElementById('copy')) {
+			document.getElementById('copy').innerHTML = '复制'
+		}
 	}, 1500)
 }
-function refresh() {
+function writeHTML() {
 	document.body.innerHTML = `
 	<style id="remove">
 		body {
@@ -158,7 +149,10 @@ function refresh() {
 			</select>
 			<div id="querybtn" class="button" onclick="query()">查询</div>
 		</div>
-	</div>
-`
+	</div>`
 }
-window.onload = refresh
+function back() {
+	writeHTML()
+	document.getElementById('name').value = iNm
+}
+window.onload = writeHTML
