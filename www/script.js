@@ -6,6 +6,7 @@ function getExam() {
 		's3t1mt': s3t1mt,
 		's3t1fi': s3t1fi,
 		'szme1': szme1,
+		"s3t2m3": s3t2m3,
 		// 'szme2': szme2,
 		// 'gzme1': gzme1,
 	}
@@ -55,7 +56,7 @@ function query() {
 	if (iNm == '') {
 		alert('请输入考生姓名后查询！')
 	} else if (typeof (getExam().main[iNm]) !== 'object') {
-		alert('无此人成绩！请核对后重试')
+		alert('无此人成绩！')
 	} else {
 		objData = getData(iNm)
 		document.body.innerHTML = `
@@ -84,13 +85,13 @@ function query() {
 			<span class="data"><i>${objData.grd[7]}</i> / 100 (${objData.cty[7]} / ${objData.tna[6]})</span></li>
 		<li><span class="sub"><b>${getSel(iNm)[2][1]}</b></span>
 			<span class="data"><b>${objData.grd[8]}</b> / 100 (${objData.cty[8]} / ${objData.tna[6]})</span></li>
-		<li><span class="sub"><b>说明</b></span><span class="data"><b>得分/满分 (排名/报考人数)</b></span></li>
+		<li><span class="sub"><b>说明</b></span><span class="data"><b>得分/满分 (排名/参考人数)</b></span></li>
 	</ul>
 	<div id='buttons'>
 		<div id='copy' class="button" onclick='copy()'>复制</div>
 		<div id='back' class="button" onclick='back()'>返回</div>
 	</div>
-	<p id="ps">加粗分数计入总分，市统考中<br>各科报考人数来自该科零分考生的排名</p>
+	<p id="ps">加粗分数计入总分，赋分省去小数部分<br>各科参考人数来自该科零分考生的排名</p>
 	<br>
 	`
 	}
@@ -143,7 +144,8 @@ function writeHTML() {
 			<select name="exams" id="exams" title="exams">
 				<option value="s3t1mt">高三上期中</option>
 				<option value="s3t1fi">高三上期末</option>
-				<option value="szme1" selected>深圳市一模</option>
+				<option value="szme1">深圳市一模</option>
+				<option value="s3t2m3" selected>三月份月考</option>
 				<!-- <option value="szme2" disabled>深圳市二模</option>
 				<option value="gzme1" disabled>广州市一模</option> -->
 			</select>
