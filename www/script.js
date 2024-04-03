@@ -154,4 +154,24 @@ function back() {
 	writeHTML()
 	document.getElementById('name').value = iNm
 }
+// Dev utilities
+function json2csv(exam) { // 适用于JSON形式的旧版数据库
+	main = db[exam].main
+	out = ''
+	for (stu in main) {
+		out += stu + ',' + main[stu].cls + ','
+			+ main[stu].sel[0] + ',' + main[stu].sel[1] + ','
+			+ main[stu].sel[2] + ',' + main[stu].sel[3] + ','
+			+ main[stu].main.t.t[0] + ',' + main[stu].main.t.t[1] + ','
+			+ main[stu].main.y.o[0] + ',' + main[stu].main.y.o[1] + ','
+			+ main[stu].main.s.o[0] + ',' + main[stu].main.s.o[1] + ','
+			+ main[stu].main.w.o[0] + ',' + main[stu].main.w.o[1] + ','
+			+ main[stu].main.a.o[0] + ',' + main[stu].main.a.o[1] + ','
+			+ main[stu].main.b.o[0] + ',' + main[stu].main.b.o[1] + ','
+			+ main[stu].main.b.t[0] + ',' + main[stu].main.b.t[1] + ','
+			+ main[stu].main.c.o[0] + ',' + main[stu].main.c.o[1] + ','
+			+ main[stu].main.c.t[0] + ',' + main[stu].main.c.t[1] + '\n'
+	}
+	console.log(out)
+}
 window.onload = writeHTML
