@@ -5,7 +5,6 @@ g = "geo";	// 地理
 h = "his";	// 历史
 j = "jap";	// 日语
 p = "phy";	// 物理
-r = "rus";	// 俄语
 z = "pol";	// 政治
 const db = {
 	"s3t1mt": {
@@ -621,26 +620,3 @@ const db = {
 		}
 	}
 }
-/* const data_structure = {
-	"null": {
-		"cls": null,
-		"sel": ["null", "null", "null", "null"], // 选科 (ABC选科、外语)
-		"main": {
-			"t": { "t": [null, null] },          // 赋分总分 (分数, 市排)
-			"y": { "o": [null, null] },          // 语文原分 (分数, 市排)
-			"s": { "o": [null, null] },          // 数学原分 (分数, 市排)
-			"w": { "o": [null, null] },          // 外语原分 (分数, 市排)
-			"a": { "o": [null, null] },          // 物历原分 (分数, 市排)
-			"b": {                               // B科成绩
-				"o": [null, null],               // B科原分 (分数, 市排)
-				"t": [null, null]                // B科赋分 (分数, 市排)
-			},
-			"c": {                               // C科成绩
-				"o": [null, null],               // C科原分 (分数, 市排)
-				"t": [null, null]                // C科赋分 (分数, 市排)
-			}
-		}
-	}
-} */
-// "null": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
-// sub：科目：文考人数、理考人数、名、原；“报考人数”来源于该科0分考生的排名数，有所偏差
