@@ -6,30 +6,30 @@ function getExam() {
 }
 function getSel(obj) {
 	returnData = []
-	oSel = getExam().main[obj].sel
-		 if (oSel[0] == 'phy') { returnData[0] = ['phy', '物理', 1] }
-	else if (oSel[0] == 'his') { returnData[0] = ['his', '历史', 0] }
-		 if (oSel[1] == 'geo') { returnData[1] = ['geo', '地理', '地原'] }
-	else if (oSel[1] == 'che') { returnData[1] = ['che', '化学', '化原'] }
-		 if (oSel[2] == 'bio') { returnData[2] = ['bio', '生物', '生原'] }
-	else if (oSel[2] == 'pol') { returnData[2] = ['pol', '政治', '政原'] }
-	else if (oSel[2] == 'geo') { returnData[2] = ['geo', '地理', '地原'] }
-		 if (oSel[3] == 'eng') { returnData[3] = ['eng', '英语'] }
-	else if (oSel[3] == 'jap') { returnData[3] = ['jap', '日语'] }
-	else if (oSel[3] == 'rus') { returnData[3] = ['rus', '俄语'] }
+	oSel = getExam().main[obj]
+		 if (oSel[1][0] == 'phy') { returnData[0] = ['phy', '物理', 1] }
+	else if (oSel[1][0] == 'his') { returnData[0] = ['his', '历史', 0] }
+		 if (oSel[1][1] == 'geo') { returnData[1] = ['geo', '地理', '地原'] }
+	else if (oSel[1][1] == 'che') { returnData[1] = ['che', '化学', '化原'] }
+		 if (oSel[1][2] == 'bio') { returnData[2] = ['bio', '生物', '生原'] }
+	else if (oSel[1][2] == 'pol') { returnData[2] = ['pol', '政治', '政原'] }
+	else if (oSel[1][2] == 'geo') { returnData[2] = ['geo', '地理', '地原'] }
+		 if (oSel[1][3] == 'eng') { returnData[3] = ['eng', '英语'] }
+	else if (oSel[1][3] == 'jap') { returnData[3] = ['jap', '日语'] }
+	else if (oSel[1][3] == 'rus') { returnData[3] = ['rus', '俄语'] }
 	return returnData
 }
 function getData(obj) {
-	oMn = getExam().main[obj].main
+	oMn = getExam().main[obj]
 	var objData = {
 		"exam": getExam().exam,
 		"schoolName": getExam().schoolName,
 		"grade": getExam().grade,
-		"classNum": getExam().main[obj].cls,
+		"classNum": oMn[0],
 		"name": obj,
 		// 分数、排名：总分、语文、数学、外语、A科、B科原、B科、C科原、C科
-		"grd": [oMn.t.t[0], oMn.y.o[0], oMn.s.o[0], oMn.w.o[0], oMn.a.o[0], oMn.b.o[0], oMn.b.t[0], oMn.c.o[0], oMn.c.t[0]],
-		"cty": [oMn.t.t[1], oMn.y.o[1], oMn.s.o[1], oMn.w.o[1], oMn.a.o[1], oMn.b.o[1], oMn.b.t[1], oMn.c.o[1], oMn.c.t[1]],
+		"grd": [oMn[2][0], oMn[3][0], oMn[4][0], oMn[5][0], oMn[6][0], oMn[7][0][0], oMn[7][1][0], oMn[8][0][0], oMn[8][1][0]],
+		"cty": [oMn[2][1], oMn[3][1], oMn[4][1], oMn[5][1], oMn[6][1], oMn[7][0][1], oMn[7][1][1], oMn[8][0][1], oMn[8][1][1]],
 		"tna": [                                                 // 各科总报考人数
 			getExam().sub.tot[getSel(obj)[0][2]],                // 总分
 			getExam().sub.chn[getSel(obj)[0][2]],                // 语文
@@ -46,14 +46,10 @@ function query() {
 	iNm = document.getElementById('name').value
 	if (iNm == '') {
 		document.getElementById('querybtn').innerHTML = '请输入姓名'
-		setTimeout(function () {
-			document.getElementById('querybtn').innerHTML = '查询'
-		}, 1500)
+		setTimeout(function () { document.getElementById('querybtn').innerHTML = '查询' }, 1500)
 	} else if (!getExam().main[iNm]) {
 		document.getElementById('querybtn').innerHTML = '无此人成绩'
-		setTimeout(function () {
-			document.getElementById('querybtn').innerHTML = '查询'
-		}, 1500)
+		setTimeout(function () { document.getElementById('querybtn').innerHTML = '查询' }, 1500)
 	} else {
 		objData = getData(iNm)
 		document.body.innerHTML = `
