@@ -6,38 +6,37 @@ function getExam() {
 }
 function getSel(obj) {
 	returnData = []
-	oSel = getExam().main[obj].sel
-		 if (oSel[0] == 'phy') { returnData[0] = ['phy', '物理', 1] }
-	else if (oSel[0] == 'his') { returnData[0] = ['his', '历史', 0] }
-		 if (oSel[1] == 'geo') { returnData[1] = ['geo', '地理', '地原'] }
-	else if (oSel[1] == 'che') { returnData[1] = ['che', '化学', '化原'] }
-		 if (oSel[2] == 'bio') { returnData[2] = ['bio', '生物', '生原'] }
-	else if (oSel[2] == 'pol') { returnData[2] = ['pol', '政治', '政原'] }
-	else if (oSel[2] == 'geo') { returnData[2] = ['geo', '地理', '地原'] }
-		 if (oSel[3] == 'eng') { returnData[3] = ['eng', '英语'] }
-	else if (oSel[3] == 'jap') { returnData[3] = ['jap', '日语'] }
-	else if (oSel[3] == 'rus') { returnData[3] = ['rus', '俄语'] }
+	oSel = getExam().main[obj]
+		 if (oSel[1] == 'phy') { returnData[0] = ['phy', '物理', 1] }
+	else if (oSel[1] == 'his') { returnData[0] = ['his', '历史', 0] }
+		 if (oSel[2] == 'geo') { returnData[1] = ['geo', '地理', '地原'] }
+	else if (oSel[2] == 'che') { returnData[1] = ['che', '化学', '化原'] }
+		 if (oSel[3] == 'bio') { returnData[2] = ['bio', '生物', '生原'] }
+	else if (oSel[3] == 'pol') { returnData[2] = ['pol', '政治', '政原'] }
+	else if (oSel[3] == 'geo') { returnData[2] = ['geo', '地理', '地原'] }
+		 if (oSel[4] == 'eng') { returnData[3] = ['eng', '英语'] }
+	else if (oSel[4] == 'jap') { returnData[3] = ['jap', '日语'] }
+	else if (oSel[4] == 'rus') { returnData[3] = ['rus', '俄语'] }
 	return returnData
 }
 function getData(obj) {
-	oMn = getExam().main[obj].main
+	oMn = getExam().main[obj]
 	var objData = {
 		"exam": getExam().exam,
 		"schoolName": getExam().schoolName,
 		"grade": getExam().grade,
-		"classNum": getExam().main[obj].cls,
+		"classNum": oMn[0],
 		"name": obj,
-		// 分数、排名：总分、语文、数学、外语、A科、B科原、B科、C科原、C科
-		"grd": [oMn.t.t[0], oMn.y.o[0], oMn.s.o[0], oMn.w.o[0], oMn.a.o[0], oMn.b.o[0], oMn.b.t[0], oMn.c.o[0], oMn.c.t[0]],
-		"cty": [oMn.t.t[1], oMn.y.o[1], oMn.s.o[1], oMn.w.o[1], oMn.a.o[1], oMn.b.o[1], oMn.b.t[1], oMn.c.o[1], oMn.c.t[1]],
-		"tna": [                                                 // 各科总报考人数
-			getExam().sub.tot[getSel(obj)[0][2]],                // 总分
-			getExam().sub.chn[getSel(obj)[0][2]],                // 语文
-			getExam().sub.mat[getSel(obj)[0][2]],                // 数学
-			getExam().sub[getSel(obj)[3][0]][getSel(obj)[0][2]], // 外语
-			getExam().sub[getSel(obj)[0][0]][getSel(obj)[0][2]], // A科
-			getExam().sub[getSel(obj)[1][0]][getSel(obj)[0][2]], // B科
-			getExam().sub[getSel(obj)[2][0]][getSel(obj)[0][2]]  // C科
+		"grd": [oMn[5], oMn[7], oMn[9], oMn[11], oMn[13], oMn[15], oMn[17], oMn[19], oMn[21]],
+		"cty": [oMn[6], oMn[8], oMn[10], oMn[12], oMn[14], oMn[16], oMn[18], oMn[20], oMn[22]],
+		"tna": [
+			getExam().sub.tot[getSel(obj)[0][2]],
+			getExam().sub.chn[getSel(obj)[0][2]],
+			getExam().sub.mat[getSel(obj)[0][2]],
+			getExam().sub[getSel(obj)[3][0]][getSel(obj)[0][2]],
+			getExam().sub[getSel(obj)[0][0]][getSel(obj)[0][2]],
+			getExam().sub[getSel(obj)[1][0]][getSel(obj)[0][2]],
+			getExam().sub[getSel(obj)[2][0]][getSel(obj)[0][2]]
 		]
 	}
 	return objData
@@ -46,14 +45,10 @@ function query() {
 	iNm = document.getElementById('name').value
 	if (iNm == '') {
 		document.getElementById('querybtn').innerHTML = '请输入姓名'
-		setTimeout(function () {
-			document.getElementById('querybtn').innerHTML = '查询'
-		}, 1500)
+		setTimeout(function () { document.getElementById('querybtn').innerHTML = '查询' }, 1500)
 	} else if (!getExam().main[iNm]) {
 		document.getElementById('querybtn').innerHTML = '无此人成绩'
-		setTimeout(function () {
-			document.getElementById('querybtn').innerHTML = '查询'
-		}, 1500)
+		setTimeout(function () { document.getElementById('querybtn').innerHTML = '查询' }, 1500)
 	} else {
 		objData = getData(iNm)
 		document.body.innerHTML = `
@@ -154,4 +149,23 @@ function back() {
 	writeHTML()
 	document.getElementById('name').value = iNm
 }
+/* function json2arr(exam) {
+	main = db[exam].main
+	out = ''
+	for (stu in main) {
+		out += stu + '\t' + main[stu].cls + '\t'
+			+ '\"' + main[stu].sel[0] + '\"\t\"' + main[stu].sel[1] + '\"\t'
+			+ '\"' + main[stu].sel[2] + '\"\t\"' + main[stu].sel[3] + '\"\t'
+			+ main[stu].main.t.t[0] + '\t' + main[stu].main.t.t[1] + '\t'
+			+ main[stu].main.y.o[0] + '\t' + main[stu].main.y.o[1] + '\t'
+			+ main[stu].main.s.o[0] + '\t' + main[stu].main.s.o[1] + '\t'
+			+ main[stu].main.w.o[0] + '\t' + main[stu].main.w.o[1] + '\t'
+			+ main[stu].main.a.o[0] + '\t' + main[stu].main.a.o[1] + '\t'
+			+ main[stu].main.b.o[0] + '\t' + main[stu].main.b.o[1] + '\t'
+			+ main[stu].main.b.t[0] + '\t' + main[stu].main.b.t[1] + '\t'
+			+ main[stu].main.c.o[0] + '\t' + main[stu].main.c.o[1] + '\t'
+			+ main[stu].main.c.t[0] + '\t' + main[stu].main.c.t[1] + '\t\n'
+	}
+	console.log(out)
+} */
 window.onload = writeHTML
