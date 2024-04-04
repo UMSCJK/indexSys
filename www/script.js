@@ -135,12 +135,11 @@ function writeHTML() {
 		<input type="text" id="name" placeholder="请输入姓名"><br>
 		<div id="row">
 			<select name="exams" id="exams" title="exams">
-				<option value="s3t1mt">高三上期中</option>
-				<option value="s3t1fi">高三上期末</option>
-				<option value="szme1">深圳市一模</option>
-				<option value="s3t2m3" selected>三月份月考</option>
-				<!-- <option value="szme2" disabled>深圳市二模</option>
-				<option value="gzme1" disabled>广州市一模</option> -->
+				<option value="20230913">高三上学考</option>
+				<option value="20231118">高三上期中</option>
+				<option value="20240117">高三上期末</option>
+				<option value="20240228">深圳市一模</option>
+				<option value="20240327" selected>三月份月考</option>
 			</select>
 			<div id="querybtn" class="button" onclick="query()">查询</div>
 		</div>
