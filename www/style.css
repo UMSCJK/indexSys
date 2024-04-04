@@ -10,7 +10,7 @@
 }
 
 body {
-	min-width: 384px;
+	min-width: 300px;
 }
 
 body::-webkit-scrollbar {
@@ -185,7 +185,6 @@ ul#list li span {
 @media (orientation: portrait) {
 	body {
 		border: 0;
-		width: 100vw;
 		overflow-x: hidden;
 	}
 }
