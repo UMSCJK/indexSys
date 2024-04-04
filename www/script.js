@@ -150,22 +150,22 @@ function back() {
 	document.getElementById('name').value = iNm
 }
 // Dev utilities
-function json2csv(exam) { // 适用于JSON形式的旧版数据库
-	main = db[exam].main
+function json2csv(exam) { // 适用于基于数组的新版数据库
 	out = ''
-	for (stu in main) {
-		out += stu + ',' + main[stu].cls + ','
-			+ main[stu].sel[0] + ',' + main[stu].sel[1] + ','
-			+ main[stu].sel[2] + ',' + main[stu].sel[3] + ','
-			+ main[stu].main.t.t[0] + ',' + main[stu].main.t.t[1] + ','
-			+ main[stu].main.y.o[0] + ',' + main[stu].main.y.o[1] + ','
-			+ main[stu].main.s.o[0] + ',' + main[stu].main.s.o[1] + ','
-			+ main[stu].main.w.o[0] + ',' + main[stu].main.w.o[1] + ','
-			+ main[stu].main.a.o[0] + ',' + main[stu].main.a.o[1] + ','
-			+ main[stu].main.b.o[0] + ',' + main[stu].main.b.o[1] + ','
-			+ main[stu].main.b.t[0] + ',' + main[stu].main.b.t[1] + ','
-			+ main[stu].main.c.o[0] + ',' + main[stu].main.c.o[1] + ','
-			+ main[stu].main.c.t[0] + ',' + main[stu].main.c.t[1] + '\n'
+	for (stu in db[exam].main) {
+		var m = db[exam].main[stu], c = ','
+		out += stu + c + m[0] + c
+			+ m[1][0] + c + m[1][1] + c
+			+ m[1][2] + c + m[1][3] + c
+			+ m[2][0] + c + m[2][1] + c
+			+ m[3][0] + c + m[3][1] + c
+			+ m[4][0] + c + m[4][1] + c
+			+ m[5][0] + c + m[5][1] + c
+			+ m[6][0] + c + m[6][1] + c
+			+ m[7][0][0] + c + m[7][0][1] + c
+			+ m[7][1][0] + c + m[7][1][1] + c
+			+ m[8][0][0] + c + m[8][0][1] + c
+			+ m[8][1][0] + c + m[8][1][1] + '\n'
 	}
 	console.log(out)
 }
