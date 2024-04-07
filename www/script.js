@@ -23,11 +23,9 @@ function getData(obj) {
 	oMn = getExam().main[obj]
 	var objData = {
 		"exam": getExam().exam,
-		"schoolName": getExam().schoolName,
 		"grade": getExam().grade,
 		"classNum": oMn[0],
-		"name": obj,
-		// 分数、排名：总分、语文、数学、外语、A科、B科原、B科、C科原、C科
+		"name": obj, // 分数、排名：总分、语文、数学、外语、A科、B科原、B科、C科原、C科
 		"grd": [oMn[2][0], oMn[3][0], oMn[4][0], oMn[5][0], oMn[6][0], oMn[7][0][0], oMn[7][1][0], oMn[8][0][0], oMn[8][1][0]],
 		"cty": [oMn[2][1], oMn[3][1], oMn[4][1], oMn[5][1], oMn[6][1], oMn[7][0][1], oMn[7][1][1], oMn[8][0][1], oMn[8][1][1]],
 		"tna": [                                                 // 各科总报考人数
@@ -150,7 +148,7 @@ function back() {
 	document.getElementById('name').value = iNm
 }
 // Dev utilities
-function json2csv(exam) { // 适用于基于数组的新版数据库
+function json2csv(exam) { // 数据库转CSV：适用于基于数组的新版数据库
 	out = ''
 	for (stu in db[exam].main) {
 		var m = db[exam].main[stu], c = ','
