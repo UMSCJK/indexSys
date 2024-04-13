@@ -22,12 +22,12 @@ function getSel(obj) {
 function getData(obj) {
 	oMn = getExam().main[obj]
 	var objData = {
-		"exam": getExam().exam,
-		"grade": getExam().grade,
+		"exam": getExam().info[0],
+		"grade": getExam().info[3],
 		"classNum": oMn[0],
 		"name": obj, // 分数、排名：总分、语文、数学、外语、A科、B科原、B科、C科原、C科
-		"grd": [oMn[2][0], oMn[3][0], oMn[4][0], oMn[5][0], oMn[6][0], oMn[7][0][0], oMn[7][1][0], oMn[8][0][0], oMn[8][1][0]],
-		"cty": [oMn[2][1], oMn[3][1], oMn[4][1], oMn[5][1], oMn[6][1], oMn[7][0][1], oMn[7][1][1], oMn[8][0][1], oMn[8][1][1]],
+		"grd": [oMn[2], oMn[4], oMn[6], oMn[8], oMn[10], oMn[12], oMn[14], oMn[16], oMn[18]],
+		"cty": [oMn[3], oMn[5], oMn[7], oMn[9], oMn[11], oMn[13], oMn[15], oMn[17], oMn[19]],
 		"tna": [                                                 // 各科总报考人数
 			getExam().sub.tot[getSel(obj)[0][2]],                // 总分
 			getExam().sub.chn[getSel(obj)[0][2]],                // 语文
@@ -52,8 +52,8 @@ function query() {
 		objData = getData(iNm)
 		document.body.innerHTML = `
 	<div id="header">
-		<h1 style="font-size: 24px;">${getExam().title[0]}</h1>
-		<h2 style="font-size: 16px;">${getExam().title[1]}</h2>
+		<h1 style="font-size: 24px;">${getExam().info[1]}</h1>
+		<h2 style="font-size: 16px;">${getExam().info[2]}</h2>
 	</div>
 	<ul id="list">
 		<li><span class="sub">姓名</span><span class="data">${objData.name}</span></li>
@@ -151,19 +151,12 @@ function back() {
 function json2csv(exam) { // 数据库转CSV：适用于基于数组的新版数据库
 	out = ''
 	for (stu in db[exam].main) {
-		var m = db[exam].main[stu], c = ','
-		out += stu + c + m[0] + c
-			+ m[1][0] + c + m[1][1] + c
-			+ m[1][2] + c + m[1][3] + c
-			+ m[2][0] + c + m[2][1] + c
-			+ m[3][0] + c + m[3][1] + c
-			+ m[4][0] + c + m[4][1] + c
-			+ m[5][0] + c + m[5][1] + c
-			+ m[6][0] + c + m[6][1] + c
-			+ m[7][0][0] + c + m[7][0][1] + c
-			+ m[7][1][0] + c + m[7][1][1] + c
-			+ m[8][0][0] + c + m[8][0][1] + c
-			+ m[8][1][0] + c + m[8][1][1] + '\n'
+		var m = db[exam].main[stu]
+		out += stu
+		for (var i = 0; i < 20; i++) {
+			out += ',' + m[i]
+		}
+		out += ',\n'
 	}
 	console.log(out)
 }
