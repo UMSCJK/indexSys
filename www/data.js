@@ -682,20 +682,33 @@ const db = {
 		}
 	}
 }
-/* const data_structure = {
-	"null": [       // 姓名
-		null,       // 班级           [0]
-		null,       // 选科 (代号)    [1]
-		null, null, // 赋分总分、市排 [2], [3]
-		null, null, // 语文原分、市排 [4], [5]
-		null, null, // 数学原分、市排 [6], [7]
-		null, null, // 外语原分、市排 [8], [9]
-		null, null, // 物历原分、市排 [10], [11]
-		null, null, // B科原分、市排  [12], [13]
-		null, null, // B科赋分、市排  [14], [15]
-		null, null, // C科原分、市排  [16], [17]
-		null, null  // C科赋分、市排  [18], [19]
+/*
+const data_structure = {
+	"null": [ // 姓名
+		null, // 班级  [0]
+		null, // 选科  [1]
+		null, // 总分  [2]
+		null, // 排名  [3]
+		null, // 语文  [4]
+		null, // 语排  [5]
+		null, // 数学  [6]
+		null, // 数排  [7]
+		null, // 外语  [8]
+		null, // 外排  [9]
+		null, // A科   [10]
+		null, // A排   [11]
+		null, // B原   [12]
+		null, // B排   [13]
+		null, // B赋   [14]
+		null, // B赋排 [15]
+		null, // C原   [16]
+		null, // C排   [17]
+		null, // C赋   [18]
+		null  // C赋排 [19]
 	],
-} */
-// "null":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+}
+*/
+/*
+"null":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+*/
 // sub：科目：文考人数、理考人数、名、原
