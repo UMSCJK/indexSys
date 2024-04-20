@@ -25,7 +25,7 @@ function getData(obj) { // 返回查询所需的指定考试、考生的全部�
 	oMn = getExam().main[obj]
 	var oDat = {
 		"exam": getExam().info[0],
-		"grade": getExam().info[3],
+		"grade": getExam().info[4],
 		"classNum": oMn[0],
 		"name": obj, // 分数、排名：总分、语文、数学、外语、A科、B科原、B科、C科原、C科
 		"grd": [oMn[2], oMn[4], oMn[6], oMn[8], oMn[10], oMn[12], oMn[14], oMn[16], oMn[18]],
@@ -139,13 +139,11 @@ function back() { // 查询结果界面返回至初始界面
 	document.getElementById('name').value = iNm
 }
 
-
 // 页面加载完成后自动运行
 window.onload = function () {
 	writeHTML() // 写入初始HTML内容
 	// fastdebug() // 跳过点击查询，直接显示成绩，用于开发
 }
-
 
 // Universal functions
 function copy(text) { // 将text存储至剪贴板 (传统实现)
@@ -170,21 +168,36 @@ function hint(id, text) { // 更改一个按钮的内容，1.5s后恢复
 	}
 }
 
-
 // Development utilities
-function json2csv(exam) { // 数据库转CSV：适用于基于数组的新版数据库
-	out = ''
+function list() { // 打印数据库中的所有考试信息 (info)
+	var info = '日期/代号\t年级\t考试全称\n'
+	for (exam in db) {
+		info += exam + '\t'
+			+ db[exam].info[4] + '\t'
+			+ db[exam].info[0] + '\n'
+	}
+	console.log(info)
+}
+list()
+
+function download(exam) { // CSV格式字符串转文件下载
+	content = '姓名,班,A,B,C,W,总分,市排,语,语排,数,数排,外,外排,A科,A排,B科,B排,B赋,B赋排,C科,C排,C赋,C赋排\n'
 	for (stu in db[exam].main) {
 		var m = db[exam].main[stu]
-		out += stu
+		content += stu
 		for (var i = 0; i < 20; i++) {
-			out += ',' + m[i]
+			content += ',' + m[i]
 		}
-		out += ',\n'
+		content += ',\n'
 	}
-	copy(out)
-	console.log(`CSV格式成绩单已存储至剪贴板：\n代号：${exam}\n名称：${db[exam].info[0]}`)
-	return out
+	var bom = new Uint8Array([0xEF, 0xBB, 0xBF])
+	var blob = new Blob([bom, content], { type: 'text/csv;charset=utf-8' })
+	var tempEle = document.createElement('a')
+	tempEle.href = URL.createObjectURL(blob)
+	tempEle.download = db[exam].info[3] + '.csv'
+	tempEle.click()
+	URL.revokeObjectURL(tempEle.href)
+	console.log(`CSV格式成绩单已下载成功：\n代号：${exam}\n名称：${db[exam].info[0]}`)
 }
 
 function fastdebug() { // 直接进入查询结果页面 (调试时使用)
