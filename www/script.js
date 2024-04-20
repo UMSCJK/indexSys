@@ -1,10 +1,11 @@
-function getExam() {
+function getExam() { // 返回指定考试的全部数据
 	if (document.getElementById('exams')) {
 		selExam = document.getElementById('exams').value
 	}
 	return db[selExam]
 }
-function getSel(obj) {
+
+function getSel(obj) { // 返回指定考生的选科信息
 	rtDat = []
 	oSel = getExam().main[obj]
 		 if (oSel[1][0] == 'phy') { rtDat[0] = ['phy', '物理', 1] }
@@ -19,7 +20,8 @@ function getSel(obj) {
 	else if (oSel[1][3] == 'rus') { rtDat[3] = ['rus', '俄语'] }
 	return rtDat
 }
-function getData(obj) {
+
+function getData(obj) { // 返回查询所需的指定考试、考生的全部数据
 	oMn = getExam().main[obj]
 	var oDat = {
 		"exam": getExam().info[0],
@@ -40,14 +42,13 @@ function getData(obj) {
 	}
 	return oDat
 }
-function query() {
+
+function query() { // 切至查询结果界面
 	iNm = document.getElementById('name').value
 	if (iNm == '') {
-		document.getElementById('querybtn').innerHTML = '请输入姓名'
-		setTimeout(function () { document.getElementById('querybtn').innerHTML = '查询' }, 1500)
+		hint('querybtn', '请输入姓名')
 	} else if (!getExam().main[iNm]) {
-		document.getElementById('querybtn').innerHTML = '无此人成绩'
-		setTimeout(function () { document.getElementById('querybtn').innerHTML = '查询' }, 1500)
+		hint('querybtn', '无此人成绩')
 	} else {
 		oDat = getData(iNm)
 		document.body.innerHTML = `
@@ -87,18 +88,8 @@ function query() {
 	`
 	}
 }
-function copy(text) {
-	var tempArea = document.createElement("textarea")
-	var tempScrollY = scrollY
-	tempArea.value = text
-	document.body.appendChild(tempArea)
-	tempArea.focus()
-	tempArea.select()
-	document.execCommand('copy')
-	document.body.removeChild(tempArea)
-	scroll(0, tempScrollY)
-}
-function copyGrade() {
+
+function copyGrade() { // 复制成绩至剪贴板
 	text = `姓名：${oDat.name}
 班级：${oDat.grade} (${oDat.classNum}) 班
 总分：${oDat.grd[0]}/750 (${oDat.cty[0]}/${oDat.tna[0]})
@@ -112,14 +103,10 @@ ${getSel(iNm)[2][2]}：${oDat.grd[7]}/100 (${oDat.cty[7]}/${oDat.tna[6]})
 ${getSel(iNm)[2][1]}：${oDat.grd[8]}/100 (${oDat.cty[8]}/${oDat.tna[6]})
 说明：得分/满分 (排名/报考人数)`
 	copy(text)
-	document.getElementById('copy').innerHTML = '复制成功'
-	setTimeout(function () {
-		if (document.getElementById('copy')) {
-			document.getElementById('copy').innerHTML = '复制'
-		}
-	}, 1500)
+	hint('copy', '复制成功')
 }
-function writeHTML() {
+
+function writeHTML() { // 写入初始HTML内容
 	document.body.innerHTML = `
 	<style id="remove">
 		body {
@@ -146,11 +133,45 @@ function writeHTML() {
 		</div>
 	</div>`
 }
-function back() {
+
+function back() { // 查询结果界面返回至初始界面
 	writeHTML()
 	document.getElementById('name').value = iNm
 }
-// Dev utilities
+
+
+// 页面加载完成后自动运行
+window.onload = function () {
+	writeHTML() // 写入初始HTML内容
+	// fastdebug() // 跳过点击查询，直接显示成绩，用于开发
+}
+
+
+// Universal functions
+function copy(text) { // 将text存储至剪贴板 (传统实现)
+	var tempArea = document.createElement("textarea")
+	var tempScrollY = scrollY
+	tempArea.value = text
+	document.body.appendChild(tempArea)
+	tempArea.focus()
+	tempArea.select()
+	document.execCommand('copy')
+	document.body.removeChild(tempArea)
+	scroll(0, tempScrollY)
+}
+
+function hint(id, text) { // 更改一个按钮的内容，1.5s后恢复
+	if (document.getElementById(id)) {
+		original = document.getElementById(id).innerHTML
+		document.getElementById(id).innerHTML = text
+		setTimeout(function () {
+			document.getElementById(id).innerHTML = original
+		}, 1500)
+	}
+}
+
+
+// Development utilities
 function json2csv(exam) { // 数据库转CSV：适用于基于数组的新版数据库
 	out = ''
 	for (stu in db[exam].main) {
@@ -165,11 +186,8 @@ function json2csv(exam) { // 数据库转CSV：适用于基于数组的新版数
 	console.log(`CSV格式成绩单已存储至剪贴板：\n代号：${exam}\n名称：${db[exam].info[0]}`)
 	return out
 }
-function fastdebug() {
+
+function fastdebug() { // 直接进入查询结果页面 (调试时使用)
 	document.getElementById('name').value = '曹俊楷'
 	query()
-}
-window.onload = function () { // 页面加载完成后自动运行
-	writeHTML()
-	// fastdebug() // 跳过点击查询，直接显示成绩，用于开发
 }
