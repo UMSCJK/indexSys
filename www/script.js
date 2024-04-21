@@ -139,15 +139,15 @@ function back() { // 查询结果界面返回至初始界面
 	document.getElementById('name').value = iNm
 }
 
-// 页面加载完成后自动运行
+// 界面加载完成后自动运行
 window.onload = function () {
 	writeHTML() // 写入初始HTML内容
-	// fastdebug() // 跳过点击查询，直接显示成绩，用于开发
+	// list() // 跳过点击查询，直接显示成绩，用于开发
 }
 
 // Universal functions
 function copy(text) { // 将text存储至剪贴板 (传统实现)
-	var tempArea = document.createElement("textarea")
+	var tempArea = document.createElement('textarea')
 	var tempScrollY = scrollY
 	tempArea.value = text
 	document.body.appendChild(tempArea)
@@ -168,17 +168,19 @@ function hint(id, text) { // 更改一个按钮的内容，1.5s后恢复
 	}
 }
 
+function random(n) {
+	return Math.floor(Math.random() * n)
+}
+
 // Development utilities
 function list() { // 打印数据库中的所有考试信息 (info)
-	var info = '日期/代号\t年级\t考试全称\n'
+	var info = `可用download()函数下载单次考试的CSV格式的成绩数据表
+如：download(20240327)\n\n日期/代号\t年级\t考试全称\n`
 	for (exam in db) {
-		info += exam + '\t'
-			+ db[exam].info[4] + '\t'
-			+ db[exam].info[0] + '\n'
+		info += `${exam}\t${db[exam].info[4]}\t${db[exam].info[0]}\n`
 	}
 	console.log(info)
 }
-list()
 
 function download(exam) { // CSV格式字符串转文件下载
 	content = '姓名,班,A,B,C,W,总分,市排,语,语排,数,数排,外,外排,A科,A排,B科,B排,B赋,B赋排,C科,C排,C赋,C赋排\n'
@@ -186,7 +188,7 @@ function download(exam) { // CSV格式字符串转文件下载
 		var m = db[exam].main[stu]
 		content += stu
 		for (var i = 0; i < 20; i++) {
-			content += ',' + m[i]
+			content += `,${m[i]}`
 		}
 		content += ',\n'
 	}
@@ -200,7 +202,13 @@ function download(exam) { // CSV格式字符串转文件下载
 	console.log(`CSV格式成绩单已下载成功：\n代号：${exam}\n名称：${db[exam].info[0]}`)
 }
 
-function fastdebug() { // 直接进入查询结果页面 (调试时使用)
-	document.getElementById('name').value = '曹俊楷'
+function fastdebug() { // 随机选择考试考生，直接进入查询结果界面 (调试时使用)
+	var exams = [], students = []
+	for (exam in db) { exams.push(exam) }
+	var random_exam = exams[random(exams.length)]
+	for (stu in db[random_exam].main) { students.push(stu) }
+	var random_stu = students[random(students.length)]
+	document.getElementById('exams').value = random_exam
+	document.getElementById('name').value = random_stu
 	query()
 }
