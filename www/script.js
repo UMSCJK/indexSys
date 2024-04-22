@@ -142,7 +142,7 @@ function back() { // 查询结果界面返回至初始界面
 // 界面加载完成后自动运行
 window.onload = function () {
 	writeHTML() // 写入初始HTML内容
-	// list() // 跳过点击查询，直接显示成绩，用于开发
+	// fastdebug() // 跳过点击查询，直接显示成绩，用于开发
 }
 
 // Universal functions
@@ -171,6 +171,7 @@ function hint(id, text) { // 更改一个按钮的内容，1.5s后恢复
 function random(n) {
 	return Math.floor(Math.random() * n)
 }
+// const random = (n) => Math.floor(Math.random() * n)
 
 // Development utilities
 function list() { // 打印数据库中的所有考试信息 (info)
@@ -203,10 +204,11 @@ function download(exam) { // CSV格式字符串转文件下载
 }
 
 function fastdebug() { // 随机选择考试考生，直接进入查询结果界面 (调试时使用)
+	writeHTML()
 	var exams = [], students = []
 	for (exam in db) { exams.push(exam) }
-	var random_exam = exams[random(exams.length)]
 	for (stu in db[random_exam].main) { students.push(stu) }
+	var random_exam = exams[random(exams.length)]
 	var random_stu = students[random(students.length)]
 	document.getElementById('exams').value = random_exam
 	document.getElementById('name').value = random_stu
