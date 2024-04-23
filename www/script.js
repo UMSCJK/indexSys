@@ -5,7 +5,7 @@ function getExam() { // 返回指定考试的全部数据
 	}
 }
 function getSel(obj) { // 返回指定考生的选科信息
-	rtDat = []
+	var rtDat = []
 	oSel = getExam().main[obj]
 		 if (oSel[1][0] == 'phy') { rtDat[0] = ['phy', '物理', 1] }
 	else if (oSel[1][0] == 'his') { rtDat[0] = ['his', '历史', 0] }
@@ -20,11 +20,10 @@ function getSel(obj) { // 返回指定考生的选科信息
 	return rtDat
 }
 function getData(obj) { // 返回查询所需的指定考试、考生的全部数据
-	oMn = getExam().main[obj]
-	var oDat = {
+	var oMn = getExam().main[obj], oDat = {
+		"classNum": oMn[0],
 		"exam": getExam().info[0],
 		"grade": getExam().info[4],
-		"classNum": oMn[0],
 		"name": obj, // 分数、排名：总分、语文、数学、外语、A科、B科原、B科、C科原、C科
 		"grd": [oMn[2], oMn[4], oMn[6], oMn[8], oMn[10], oMn[12], oMn[14], oMn[16], oMn[18]],
 		"cty": [oMn[3], oMn[5], oMn[7], oMn[9], oMn[11], oMn[13], oMn[15], oMn[17], oMn[19]],
@@ -47,8 +46,8 @@ function getData(obj) { // 返回查询所需的指定考试、考生的全部�
 function check() { // 切至查询结果界面
 	iNm = document.getElementById('name').value
 	if (iNm == 'dl') { download(document.getElementById('exams').value) }
-	else if (iNm == '') { hint('checkbtn', '请输入姓名') }
-	else if (!getExam().main[iNm]) { hint('checkbtn', '无此人成绩') }
+	else if (iNm == '') { hint('check', '请输入姓名') }
+	else if (!getExam().main[iNm]) { hint('check', '无此人成绩') }
 	else {
 		oDat = getData(iNm)
 		document.body.innerHTML = `
@@ -127,10 +126,10 @@ function writeHTML() { // 写入初始HTML内容
 				<option value="20240228">深圳市一模</option>
 				<option value="20240327" selected>三月份月考</option>
 			</select>
-			<div id="checkbtn" class="button" onclick="check()">查询</div>
+			<div id="check" class="button" onclick="check()">查询</div>
 		</div>
 	</div>`
-	if (typeof(iNm) !== 'undefined') {
+	if (typeof (iNm) !== 'undefined') {
 		document.getElementById('name').value = iNm
 	}
 }
@@ -167,8 +166,9 @@ function hint(id, text) { // 更改一个按钮的内容，1.5s后恢复
 }
 //#endregion
 //#region Development utilities
-function random(n) { // const random = (n) => Math.floor(Math.random() * n)
+function random(n) {
 	return Math.floor(Math.random() * n)
+	// const random = (n) => Math.floor(Math.random() * n)
 }
 function list() { // 打印数据库中的所有考试信息 (info)
 	var info = `当前数据库内含数据简要信息如下：\n
