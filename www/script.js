@@ -7,16 +7,16 @@ function getExam() { // 返回指定考试的全部数据
 function getSel(obj) { // 返回指定考生的选科信息
 	var rtDat = []
 	oSel = getExam().main[obj]
-		 if (oSel[1][0] == 'phy') { rtDat[0] = ['phy', '物理', 1] }
-	else if (oSel[1][0] == 'his') { rtDat[0] = ['his', '历史', 0] }
-		 if (oSel[1][1] == 'geo') { rtDat[1] = ['geo', '地理', '地原'] }
-	else if (oSel[1][1] == 'che') { rtDat[1] = ['che', '化学', '化原'] }
-		 if (oSel[1][2] == 'bio') { rtDat[2] = ['bio', '生物', '生原'] }
-	else if (oSel[1][2] == 'pol') { rtDat[2] = ['pol', '政治', '政原'] }
-	else if (oSel[1][2] == 'geo') { rtDat[2] = ['geo', '地理', '地原'] }
-		 if (oSel[1][3] == 'eng') { rtDat[3] = ['eng', '英语'] }
-	else if (oSel[1][3] == 'jap') { rtDat[3] = ['jap', '日语'] }
-	else if (oSel[1][3] == 'rus') { rtDat[3] = ['rus', '俄语'] }
+		 if (oSel[1][0] == '物') { rtDat[0] = ['phy', '物理', 1] }
+	else if (oSel[1][0] == '历') { rtDat[0] = ['his', '历史', 0] }
+		 if (oSel[1][1] == '地') { rtDat[1] = ['geo', '地理', '地原'] }
+	else if (oSel[1][1] == '化') { rtDat[1] = ['che', '化学', '化原'] }
+		 if (oSel[1][2] == '生') { rtDat[2] = ['bio', '生物', '生原'] }
+	else if (oSel[1][2] == '政') { rtDat[2] = ['pol', '政治', '政原'] }
+	else if (oSel[1][2] == '地') { rtDat[2] = ['geo', '地理', '地原'] }
+		 if (oSel[1][3] == '英') { rtDat[3] = ['eng', '英语'] }
+	else if (oSel[1][3] == '日') { rtDat[3] = ['jap', '日语'] }
+	else if (oSel[1][3] == '俄') { rtDat[3] = ['rus', '俄语'] }
 	return rtDat
 }
 function getData(obj) { // 返回查询所需的指定考试、考生的全部数据
@@ -125,6 +125,7 @@ function writeHTML() { // 写入初始HTML内容
 				<option value="20240117">高三上期末</option>
 				<option value="20240228">深圳市一模</option>
 				<option value="20240327" selected>三月份月考</option>
+				<option value="20240424" disabled>深圳市二模</option>
 			</select>
 			<div id="check" class="button" onclick="check()">查询</div>
 		</div>
@@ -182,14 +183,11 @@ function list() { // 打印数据库中的所有考试信息 (info)
 }
 function download(exam) { // 下载指定考试的CSV格式成绩单
 	var content = '姓名,班,A,B,C,W,总分,市排,语,语排,数,数排,外,'
-	content += '外排,A科,A排,B科,B排,B赋,B赋排,C科,C排,C赋,C赋排\n'
+	content += '外排,A科,A排,B科,B排,B赋,B赋排,C科,C排,C赋,C赋排'
 	for (stu in db[exam].main) {
 		var m = db[exam].main[stu]
-		content += stu
-		for (var i = 0; i < 20; i++) {
-			content += `,${m[i]}`
-		}
-		content += '\n'
+		content += `\n${stu},${m[0]},${m[1][0]},${m[1][1]},${m[1][2]},${m[1][3]}`
+		for (var i = 2; i < 20; i++) { content += `,${m[i]}` }
 	}
 	var bom = new Uint8Array([0xEF, 0xBB, 0xBF])
 	var blob = new Blob([bom, content], { type: 'text/csv;charset=utf-8' })
