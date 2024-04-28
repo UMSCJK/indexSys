@@ -186,22 +186,30 @@ function list() { // 打印数据库中的所有考试信息 (info)
 for (e in db) { download(e) }`
 	console.log(info)
 }
+function csv(filename, content) { // 下载CSV数据，指定文件名和字符串内容
+	if (filename && content) {
+		var bom = new Uint8Array([0xEF, 0xBB, 0xBF])
+		var blob = new Blob([bom, content], { type: 'text/csv;charset=utf-8' })
+		var tempEle = document.createElement('a')
+		tempEle.href = URL.createObjectURL(blob)
+		tempEle.download = filename
+		tempEle.click()
+		URL.revokeObjectURL(tempEle.href)
+	}
+}
 function download(exam) { // 下载指定考试的CSV格式成绩单
+	var filename = db[exam].info[3] + '.csv'
 	var cont = '姓名,班,A,B,C,W,总分,市排,语,语排,数,数排,外,'
-	cont += '外排,A科,A排,B科,B排,B赋,B赋排,C科,C排,C赋,C赋排'
+		+ '外排,A科,A排,B科,B排,B赋,B赋排,C科,C排,C赋,C赋排'
 	for (stu in db[exam].main) {
 		var m = db[exam].main[stu]
 		cont += `\n${stu},${m[0]}`
-		cont += `,${sl[m[1]][0]},${sl[m[1]][1]},${sl[m[1]][2]},${sl[m[1]][3]}`
-		for (var i = 2; i < 20; i++) { cont += `,${m[i]}` }
+			+ `,${sl[m[1]][0]},${sl[m[1]][1]},${sl[m[1]][2]},${sl[m[1]][3]}`
+		for (var i = 2; i < 20; i++) {
+			cont += `,${m[i]}`
+		}
 	}
-	var bom = new Uint8Array([0xEF, 0xBB, 0xBF])
-	var blob = new Blob([bom, cont], { type: 'text/csv;charset=utf-8' })
-	var tempEle = document.createElement('a')
-	tempEle.href = URL.createObjectURL(blob)
-	tempEle.download = db[exam].info[3] + '.csv'
-	tempEle.click()
-	URL.revokeObjectURL(tempEle.href)
+	csv(filename, cont)
 	console.log(`"${db[exam].info[3]}.csv"下载成功：
 代号：${exam}
 考试：${db[exam].info[0]}`)
