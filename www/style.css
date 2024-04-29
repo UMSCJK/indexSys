@@ -39,6 +39,14 @@ div#header h2 {
 	text-align: left;
 }
 
+div#header h1 {
+	font-size: 24px;
+}
+
+div#header h2 {
+	font-size: 16px;
+}
+
 div#buttons {
 	height: 40px;
 	margin: 16px 0;
