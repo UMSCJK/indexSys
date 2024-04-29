@@ -169,22 +169,18 @@ function hint(id, text) { // 更改一个按钮的内容，1.5s后恢复
 		}
 	}
 }
-//#endregion
-//#region Development utilities
+function allSame(arr) { // 输入数组，若数组内容完全一致，输出true
+	var same = true
+	for (var i = 1; i < arr.length; i++) {
+		if (arr[i - 1] !== arr[i]) {
+			same = false
+		}
+	}
+	return same
+}
 function random(n) {
 	return Math.floor(Math.random() * n)
 	// random = n => Math.floor(Math.random() * n)
-}
-function list() { // 打印数据库中的所有考试信息 (info)
-	var info = `当前数据库内含数据简要信息如下：\n
-日期/代号\t年级\t考试全称\n`
-	for (exam in db) {
-		info += `${exam}\t${db[exam].info[4]}\t${db[exam].info[0]}\n`
-	}
-	info += `\nP.S.: 在姓名框中输入'dl'，点击查询按钮后即开始下载
-所选考试的CSV格式成绩表。也可用以下命令下载全部数据：
-for (e in db) { download(e) }`
-	console.log(info)
 }
 function csv(filename, content) { // 下载CSV数据，指定文件名和字符串内容
 	if (filename && content) {
@@ -196,6 +192,19 @@ function csv(filename, content) { // 下载CSV数据，指定文件名和字符�
 		tempEle.click()
 		URL.revokeObjectURL(tempEle.href)
 	}
+}
+//#endregion
+//#region Development utilities
+function list() { // 打印数据库中的所有考试信息 (info)
+	var info = `当前数据库内含数据简要信息如下：\n
+日期/代号\t年级\t考试全称\n`
+	for (exam in db) {
+		info += `${exam}\t${db[exam].info[4]}\t${db[exam].info[0]}\n`
+	}
+	info += `\nP.S.: 在姓名框中输入'dl'，点击查询按钮后即开始下载
+所选考试的CSV格式成绩表。也可用以下命令下载全部数据：
+for (e in db) { download(e) }`
+	console.log(info)
 }
 function download(exam) { // 下载指定考试的CSV格式成绩单
 	var filename = db[exam].info[3] + '.csv'
