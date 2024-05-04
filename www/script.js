@@ -1,11 +1,9 @@
 //#region 主要功能
-function getSel(obj, exam) { // 返回指定考生的选科信息
+function getSel(stu, exam) { // 返回指定考生的选科信息
 	if (exam) { // 若有第二个参数
-		var oSel = sl[db[exam].main[obj][1]] // 选科
-	} else { // 若没有第二个参数则使用select的value
-		if ($('exams')) {
-			oSel = sl[db[$('exams').value].main[obj][1]]
-		}
+		var oSel = sl[db[exam].main[stu][1]] // 选科
+	} else if (!exam && $('exams')) { // 若没有第二个参数则使用select的value
+		var oSel = sl[db[$('exams').value].main[stu][1]]
 	}
 	var sDat = [] // Student Data
 	if (oSel[0] == '物') { sDat[0] = ['phy', '物理', 1] }
@@ -20,10 +18,14 @@ function getSel(obj, exam) { // 返回指定考生的选科信息
 	if (oSel[3] == '俄') { sDat[3] = ['rus', '俄语'] }
 	return sDat
 }
-function getData(obj) { // 返回查询所需的指定考试、考生的全部数据
-	if ($('exams')) { var eDat = db[$('exams').value] }
-	var sd = eDat.main[obj], gso = getSel(obj), es = eDat.sub, studentInfo = {
-		"class": sd[0], "exam": eDat.info[0], "grade": eDat.info[4], "name": obj,
+function getData(stu, exam) { // 返回查询所需的指定考试、考生的全部数据
+	if (exam) { // 若有第二个参数
+		var eDat = db[exam]
+	} else if (!exam && $('exams')) {
+		var eDat = db[$('exams').value]
+	}
+	var sd = eDat.main[stu], gso = getSel(stu), es = eDat.sub, studentInfo = {
+		"class": sd[0], "exam": eDat.info[0], "grade": eDat.info[4], "name": stu,
 		"scr": [sd[2], sd[4], sd[6], sd[8], sd[10], sd[12], sd[14], sd[16], sd[18]],
 		"rnk": [sd[3], sd[5], sd[7], sd[9], sd[11], sd[13], sd[15], sd[17], sd[19]],
 		"sel": [gso[3][1], gso[0][1], gso[1][2], gso[1][1], gso[2][2], gso[2][1]],
@@ -142,14 +144,13 @@ function copy(text) { // 将text存储至剪贴板 (传统实现)
 	document.body.removeChild(area)
 	scroll(0, tempScrollY)
 }
-function hint(id, text) {
-	if ($(id)) {
-		var ori = $(id).innerHTML
+function hint(id, text) { // 改变innerHTML，1.5s后还原
+	if ($(id)) { // 创建id-原innerHTML对应表
+		if (typeof (ori) !== 'object') { ori = {} }
+		if (!ori[id]) { ori[id] = $(id).innerHTML }
 		$(id).innerHTML = text
 		setTimeout(function () {
-			if ($(id)) {
-				$(id).innerHTML = ori
-			}
+			if ($(id)) { $(id).innerHTML = ori[id] }
 		}, 1500)
 	}
 }
@@ -171,7 +172,7 @@ function csv(filename, content) { // 下载CSV数据，指定文件名和字符�
 		URL.revokeObjectURL(tempEle.href)
 	}
 }
-function exist(name) { // 判断数据库中是否存在指定学生数据
+function exist(name) { // 判断数据库中是否存在指定学生数据，返回出现次数
 	var num = 0
 	for (e in db) {
 		if (db[e].main[name]) { num++ }
@@ -181,13 +182,13 @@ function exist(name) { // 判断数据库中是否存在指定学生数据
 //#endregion
 //#region 开发工具
 function list() { // 打印数据库中的所有考试信息 (info)
-	var info = `当前数据库内含数据简要信息如下：\n\n日期 / 代号\t年级\t考试全称\n`
+	var info = `当前数据库内含数据简要信息如下：\n\n日期/代号\t年级\t考试全称\n`
 	for (var exam in db) {
-		info += `${exam} \t${db[exam].info[4]} \t${db[exam].info[0]} \n`
+		info += `${exam}\t${db[exam].info[4]}\t${db[exam].info[0]}\n`
 	}
 	info += `\nP.S.: 在姓名框中输入'dl'，点击查询按钮后即开始下载
-	所选考试的CSV格式成绩表。也可用以下命令下载全部数据：
-	for (var e in db) { download(e) } `
+所选考试的CSV格式成绩表。也可用以下命令下载全部数据：
+for (var e in db) { download(e) }`
 	console.log(info)
 }
 function download(exam) { // 下载指定考试的CSV格式成绩单
@@ -196,10 +197,10 @@ function download(exam) { // 下载指定考试的CSV格式成绩单
 		+ '外排,A科,A排,B科,B排,B赋,B赋排,C科,C排,C赋,C赋排'
 	for (var stu in db[exam].main) {
 		var m = db[exam].main[stu]
-		cont += `\n${stu},${m[0]} `
-			+ `, ${sl[m[1]][0]},${sl[m[1]][1]},${sl[m[1]][2]},${sl[m[1]][3]} `
+		cont += `\n${stu},${m[0]}`
+			+ `,${sl[m[1]][0]},${sl[m[1]][1]},${sl[m[1]][2]},${sl[m[1]][3]}`
 		for (var i = 2; i < 20; i++) {
-			cont += `, ${m[i]} `
+			cont += `,${m[i]}`
 		}
 	}
 	csv(filename, cont)
@@ -217,13 +218,13 @@ function copyAll(name, s) { // 复制指定考生的所有分数
 		}
 		if (allSame(compare) == true) { // 若一样则继续
 			var sel = getSel(name, [joined[0]])
-			var allData = `${name} ${db[joined[0]].main[name][0]}班${s} `
-				+ `总${s}语${s}数${s}${sel[3][1][0]}${s}${sel[0][1][0]} `
-				+ `${s}${sel[1][2][0]}${s}赋${s}${sel[2][2][0]}${s} 赋`
+			var allData = `${name} ${db[joined[0]].main[name][0]}班${s}`
+				+ `总${s}语${s}数${s}${sel[3][1][0]}${s}${sel[0][1][0]}`
+				+ `${s}${sel[1][2][0]}${s}赋${s}${sel[2][2][0]}${s}赋`
 			for (j of joined) {
 				var a = db[j].main[name]
-				allData += `\n${db[j].info[3]} `
-				for (var i = 1; i < 10; i++) { allData += `${s}${a[i * 2]} ` }
+				allData += `\n${db[j].info[3]}`
+				for (var i = 1; i < 10; i++) { allData += `${s}${a[i * 2]}` }
 			}
 			copy(allData)
 		}
