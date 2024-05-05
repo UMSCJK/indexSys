@@ -1,45 +1,44 @@
 //#region 主要功能
-function getSel(stu, exam) { // 返回指定考生的选科信息
-	if (exam) { // 若有第二个参数
-		var oSel = sl[db[exam].main[stu][1]] // 选科
-	} else if (!exam && $('exams')) { // 若没有第二个参数则使用select的value
-		var oSel = sl[db[$('exams').value].main[stu][1]]
-	}
-	var sDat = [] // Student Data
-	if (oSel[0] == '物') { sDat[0] = ['phy', '物理', 1] }
-	if (oSel[0] == '历') { sDat[0] = ['his', '历史', 0] }
-	if (oSel[1] == '地') { sDat[1] = ['geo', '地理', '地原'] }
-	if (oSel[1] == '化') { sDat[1] = ['che', '化学', '化原'] }
-	if (oSel[2] == '生') { sDat[2] = ['bio', '生物', '生原'] }
-	if (oSel[2] == '政') { sDat[2] = ['pol', '政治', '政原'] }
-	if (oSel[2] == '地') { sDat[2] = ['geo', '地理', '地原'] }
-	if (oSel[3] == '英') { sDat[3] = ['eng', '英语'] }
-	if (oSel[3] == '日') { sDat[3] = ['jap', '日语'] }
-	if (oSel[3] == '俄') { sDat[3] = ['rus', '俄语'] }
-	return sDat
-}
 function getData(stu, exam) { // 返回查询所需的指定考试、考生的全部数据
-	if (exam) { // 若有第二个参数
-		var eDat = db[exam]
+	if (exam) {
+		var ed = db[exam] // Exam Data 指定考试的全部数据
+		var ss = sl[db[exam].main[stu][1]] // Student Selection 指定学生的选科代号
 	} else if (!exam && $('exams')) {
-		var eDat = db[$('exams').value]
+		var ed = db[$('exams').value]
+		var ss = sl[db[$('exams').value].main[stu][1]]
 	}
-	var sd = eDat.main[stu], gso = getSel(stu), es = eDat.sub, studentInfo = {
-		"class": sd[0], "exam": eDat.info[0], "grade": eDat.info[4], "name": stu,
-		"scr": [sd[2], sd[4], sd[6], sd[8], sd[10], sd[12], sd[14], sd[16], sd[18]],
-		"rnk": [sd[3], sd[5], sd[7], sd[9], sd[11], sd[13], sd[15], sd[17], sd[19]],
-		"sel": [gso[3][1], gso[0][1], gso[1][2], gso[1][1], gso[2][2], gso[2][1]],
-		"tna": [es.tot[gso[0][2]], es.chn[gso[0][2]], es.mat[gso[0][2]], // 总、语数
-		es[gso[3][0]][gso[0][2]], es[gso[0][0]][gso[0][2]],              // 外语、A科
-		es[gso[1][0]][gso[0][2]], es[gso[2][0]][gso[0][2]]]              // B科、C科
-	}
-	return studentInfo
+	/* var sub = {
+		"英": ['eng', '英语'],
+		"日": ['jap', '日语'],
+		"物": ['phy', '物理'],
+		"历": ['his', '历史'],
+		"生": ['bio', '生物', '生原'],
+		"地": ['geo', '地理', '地原'],
+		"化": ['che', '化学', '化原'],
+		"政": ['pol', '政治', '政原']
+	} */
+	var sd = [] // Selection Data 选科信息
+	/*A*/if (ss[0] == '物') { sd[0] = ['phy', '物理', 1] }
+	else if (ss[0] == '历') { sd[0] = ['his', '历史', 0] }
+	/*B*/if (ss[1] == '地') { sd[1] = ['geo', '地理', '地原'] }
+	else if (ss[1] == '化') { sd[1] = ['che', '化学', '化原'] }
+	/*C*/if (ss[2] == '生') { sd[2] = ['bio', '生物', '生原'] }
+	else if (ss[2] == '政') { sd[2] = ['pol', '政治', '政原'] }
+	else if (ss[2] == '地') { sd[2] = ['geo', '地理', '地原'] }
+	/*W*/if (ss[3] == '英') { sd[3] = ['eng', '英语'] }
+	else if (ss[3] == '日') { sd[3] = ['jap', '日语'] }
+	var ad = ed.main[stu], es = ed.sub, dat = [
+		[stu, ed.info[1], ed.info[2], ed.info[4], ad[0]],
+		[sd[3][1], sd[0][1], sd[1][2], sd[1][1], sd[2][2], sd[2][1]],
+		[ad[2], ad[4], ad[6], ad[8], ad[10], ad[12], ad[14], ad[16], ad[18]],
+		[ad[3], ad[5], ad[7], ad[9], ad[11], ad[13], ad[15], ad[17], ad[19]],
+		[es.tot[sd[0][2]], es.chn[sd[0][2]], es.mat[sd[0][2]], es[sd[3][0]][sd[0][2]],
+		es[sd[0][0]][sd[0][2]], es[sd[1][0]][sd[0][2]], es[sd[2][0]][sd[0][2]]]
+	]
+	return dat
 }
 function check() { // 点击查询按钮后运行
-	if ($('exams')) { // 若select#exams存在
-		var eDat = db[$('exams').value] // 所选考试的全部数据
-		inm = $('name').value
-	}
+	if ($('exams')) { inm = $('name').value } // 若select#exams存在，初始化inm
 	if (inm == 'dl') { // 若输入内容为'dl'
 		download($('exams').value)
 	} else if (inm == '') { // 若没输入内容
@@ -49,33 +48,33 @@ function check() { // 点击查询按钮后运行
 		copyAll(inm, '\t')
 		hint('check', '复制成功')
 	} else if (exist(inm)) { // 若所选考试中有所选考生的成绩
-		dt = getData(inm)
+		d = getData(inm)
 		document.body.innerHTML = `
 	<div id="header">
-		<h1>${eDat.info[1]}</h1>
-		<h2>${eDat.info[2]}</h2>
+		<h1>${d[0][1]}</h1>
+		<h2>${d[0][2]}</h2>
 	</div>
 	<ul id="list">
-		<li><span>姓名</span><span>${dt.name}</span></li>
-		<li><span>班级</span><span>${dt.grade} (${dt.class}) 班</span></li>
+		<li><span>姓名</span><span>${d[0][0]}</span></li>
+		<li><span>班级</span><span>${d[0][3]} (${d[0][4]}) 班</span></li>
 		<li><span><b>总分</b></span>
-			<span><b>${dt.scr[0]}</b> / 750 (${dt.rnk[0]} / ${dt.tna[0]})</span></li>
+			<span><b>${d[2][0]}</b> / 750 (${d[3][0]} / ${d[4][0]})</span></li>
 		<li><span><b>语文</b></span>
-			<span><b>${dt.scr[1]}</b> / 150 (${dt.rnk[1]} / ${dt.tna[1]})</span></li>
+			<span><b>${d[2][1]}</b> / 150 (${d[3][1]} / ${d[4][1]})</span></li>
 		<li><span><b>数学</b></span>
-			<span><b>${dt.scr[2]}</b> / 150 (${dt.rnk[2]} / ${dt.tna[2]})</span></li>
-		<li><span><b>${dt.sel[0]}</b></span>
-			<span><b>${dt.scr[3]}</b> / 150 (${dt.rnk[3]} / ${dt.tna[3]})</span></li>
-		<li><span><b>${dt.sel[1]}</b></span>
-			<span><b>${dt.scr[4]}</b> / 100 (${dt.rnk[4]} / ${dt.tna[4]})</span></li>
-		<li><span><i>${dt.sel[2]}</i></span>
-			<span><i>${dt.scr[5]}</i> / 100 (${dt.rnk[5]} / ${dt.tna[5]})</span></li>
-		<li><span><b>${dt.sel[3]}</b></span>
-			<span><b>${dt.scr[6]}</b> / 100 (${dt.rnk[6]} / ${dt.tna[5]})</span></li>
-		<li><span><i>${dt.sel[4]}</i></span>
-			<span><i>${dt.scr[7]}</i> / 100 (${dt.rnk[7]} / ${dt.tna[6]})</span></li>
-		<li><span><b>${dt.sel[5]}</b></span>
-			<span><b>${dt.scr[8]}</b> / 100 (${dt.rnk[8]} / ${dt.tna[6]})</span></li>
+			<span><b>${d[2][2]}</b> / 150 (${d[3][2]} / ${d[4][2]})</span></li>
+		<li><span><b>${d[1][0]}</b></span>
+			<span><b>${d[2][3]}</b> / 150 (${d[3][3]} / ${d[4][3]})</span></li>
+		<li><span><b>${d[1][1]}</b></span>
+			<span><b>${d[2][4]}</b> / 100 (${d[3][4]} / ${d[4][4]})</span></li>
+		<li><span><i>${d[1][2]}</i></span>
+			<span><i>${d[2][5]}</i> / 100 (${d[3][5]} / ${d[4][5]})</span></li>
+		<li><span><b>${d[1][3]}</b></span>
+			<span><b>${d[2][6]}</b> / 100 (${d[3][6]} / ${d[4][5]})</span></li>
+		<li><span><i>${d[1][4]}</i></span>
+			<span><i>${d[2][7]}</i> / 100 (${d[3][7]} / ${d[4][6]})</span></li>
+		<li><span><b>${d[1][5]}</b></span>
+			<span><b>${d[2][8]}</b> / 100 (${d[3][8]} / ${d[4][6]})</span></li>
 		<li><span><b>说明</b></span><span><b>得分/满分 (排名/参考人数)</b></span></li>
 	</ul>
 	<div id='buttons'>
@@ -92,16 +91,16 @@ function check() { // 点击查询按钮后运行
 	}
 }
 function copyGrade() { // 复制成绩至剪贴板
-	text = `姓名：${dt.name}\n班级：${dt.grade} (${dt.class}) 班
-总分：${dt.scr[0]}/750 (${dt.rnk[0]}/${dt.tna[0]})
-语文：${dt.scr[1]}/150 (${dt.rnk[1]}/${dt.tna[1]})
-数学：${dt.scr[2]}/150 (${dt.rnk[2]}/${dt.tna[2]})
-${dt.sel[0]}：${dt.scr[3]}/150 (${dt.rnk[3]}/${dt.tna[3]})
-${dt.sel[1]}：${dt.scr[4]}/100 (${dt.rnk[4]}/${dt.tna[4]})
-${dt.sel[2]}：${dt.scr[5]}/100 (${dt.rnk[5]}/${dt.tna[5]})
-${dt.sel[3]}：${dt.scr[6]}/100 (${dt.rnk[6]}/${dt.tna[5]})
-${dt.sel[4]}：${dt.scr[7]}/100 (${dt.rnk[7]}/${dt.tna[6]})
-${dt.sel[5]}：${dt.scr[8]}/100 (${dt.rnk[8]}/${dt.tna[6]})
+	text = `姓名：${d[0][0]}\n班级：${d[0][3]} (${d[0][4]}) 班
+总分：${d[2][0]}/750 (${d[3][0]}/${d[4][0]})
+语文：${d[2][1]}/150 (${d[3][1]}/${d[4][1]})
+数学：${d[2][2]}/150 (${d[3][2]}/${d[4][2]})
+${d[1][0]}：${d[2][3]}/150 (${d[3][3]}/${d[4][3]})
+${d[1][1]}：${d[2][4]}/100 (${d[3][4]}/${d[4][4]})
+${d[1][2]}：${d[2][5]}/100 (${d[3][5]}/${d[4][5]})
+${d[1][3]}：${d[2][6]}/100 (${d[3][6]}/${d[4][5]})
+${d[1][4]}：${d[2][7]}/100 (${d[3][7]}/${d[4][6]})
+${d[1][5]}：${d[2][8]}/100 (${d[3][8]}/${d[4][6]})
 说明：得分/满分 (排名/报考人数)`
 	copy(text)
 	hint('copy', '复制成功')
@@ -118,8 +117,8 @@ function writeHTML() { // 写入初始HTML内容
 \t\t\t\t<option value="20231118">高三上期中</option>
 \t\t\t\t<option value="20240117">高三上期末</option>
 \t\t\t\t<option value="20240228">深圳市一模</option>
-\t\t\t\t<option value="20240327" selected>三月份月考</option>
-\t\t\t\t<option value="20240424" disabled>深圳市二模</option>\n\t\t\t</select>
+\t\t\t\t<option value="20240327">三月份月考</option>
+\t\t\t\t<option value="20240424"selected>深圳市二模</option>\n\t\t\t</select>
 \t\t\t<div id="check" class="btn" onclick="check()">查询</div>\n\t\t</div>\n\t</div>
 \t<p class="ps">输入姓名+"all"后点击查询按钮<br>即可复制全部成绩，如：张三all</p>\n`
 	if (typeof (inm) !== 'undefined') { $('name').value = inm }
