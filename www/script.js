@@ -47,7 +47,7 @@ function check() { // 点击查询按钮后运行
 		inm = inm.slice(0, -3) // 去掉全局变量inm末尾的'all'
 		copyAll(inm, '\t')
 		hint('check', '复制成功')
-	} else if (exist(inm)) { // 若所选考试中有所选考生的成绩
+	} else if (db[$('exams').value].main[inm]) { // 若所选考试中有所选考生的成绩
 		d = getData(inm)
 		document.body.innerHTML = `
 	<div id="header">
@@ -75,15 +75,15 @@ function check() { // 点击查询按钮后运行
 			<span><i>${d[2][7]}</i> / 100 (${d[3][7]} / ${d[4][6]})</span></li>
 		<li><span><b>${d[1][5]}</b></span>
 			<span><b>${d[2][8]}</b> / 100 (${d[3][8]} / ${d[4][6]})</span></li>
-		<li><span><b>说明</b></span><span><b>得分/满分 (排名/参考人数)</b></span></li>
+		<li><span><b>说明</b></span><span><b>得分/满分 (排名/参加人数)</b></span></li>
 	</ul>
 	<div id='buttons'>
 		<div id='copy' class="btn" onclick='copyGrade()'>复制</div>
 		<div id='back' class="btn" onclick='writeHTML()'>返回</div>
 	</div>
 	<p class="ps">
-		加粗分数计入总分，小数赋分四舍五入<br>
-		各科参考人数取自该科零分考生的排名
+		加粗分数计入总分，全部小数分数已四舍五入<br>
+		各科参加人数为零分考生的排名数或合理猜测<br>
 	</p>
 	<br>`
 	} else {
@@ -101,7 +101,7 @@ ${d[1][2]}：${d[2][5]}/100 (${d[3][5]}/${d[4][5]})
 ${d[1][3]}：${d[2][6]}/100 (${d[3][6]}/${d[4][5]})
 ${d[1][4]}：${d[2][7]}/100 (${d[3][7]}/${d[4][6]})
 ${d[1][5]}：${d[2][8]}/100 (${d[3][8]}/${d[4][6]})
-说明：得分/满分 (排名/报考人数)`
+说明：得分/满分 (排名/参加人数)`
 	copy(text)
 	hint('copy', '复制成功')
 }
@@ -113,12 +113,12 @@ function writeHTML() { // 写入初始HTML内容
 \t<div id="container">\n\t\t<h1 id="title">深圳市云顶学校<br>成绩查询系统</h1>
 \t\t<input type="text" id="name" placeholder="请输入姓名" autocomplete="name" />
 \t\t<br>\n\t\t<div id="row">\n\t\t\t<select name="exams" id="exams" title="exams">
-\t\t\t\t<option value="20230913">高三上学考</option>
-\t\t\t\t<option value="20231118">高三上期中</option>
-\t\t\t\t<option value="20240117">高三上期末</option>
-\t\t\t\t<option value="20240228">深圳市一模</option>
-\t\t\t\t<option value="20240327">三月份月考</option>
-\t\t\t\t<option value="20240424"selected>深圳市二模</option>\n\t\t\t</select>
+\t\t\t\t<option value=20230913>高三上学考</option>
+\t\t\t\t<option value=20231118>高三上期中</option>
+\t\t\t\t<option value=20240117>高三上期末</option>
+\t\t\t\t<option value=20240228>深圳市一模</option>
+\t\t\t\t<option value=20240327>三月份月考</option>
+\t\t\t\t<option value=20240424 selected>深圳市二模</option>\n\t\t\t</select>
 \t\t\t<div id="check" class="btn" onclick="check()">查询</div>\n\t\t</div>\n\t</div>
 \t<p class="ps">输入姓名+"all"后点击查询按钮<br>即可复制全部成绩，如：张三all</p>\n`
 	if (typeof (inm) !== 'undefined') { $('name').value = inm }
@@ -181,9 +181,10 @@ function exist(name) { // 判断数据库中是否存在指定学生数据，返
 //#endregion
 //#region 开发工具
 function list() { // 打印数据库中的所有考试信息 (info)
-	var info = `当前数据库内含数据简要信息如下：\n\n日期/代号\t年级\t考试全称\n`
+	var info = `当前数据库内含数据简要信息如下：\n\n日期/代号\t年级\t人数\t考试全称\n`
 	for (var exam in db) {
-		info += `${exam}\t${db[exam].info[4]}\t${db[exam].info[0]}\n`
+		info += `${exam}\t${db[exam].info[4]}\t`
+			+ `${keys(db[exam].main).length}人\t${db[exam].info[0]}\n`
 	}
 	info += `\nP.S.: 在姓名框中输入'dl'，点击查询按钮后即开始下载
 所选考试的CSV格式成绩表。也可用以下命令下载全部数据：
