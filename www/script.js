@@ -193,19 +193,18 @@ for (var e in db) { download(e) }`
 }
 function download(exam) { // 下载指定考试的CSV格式成绩单
 	var filename = db[exam].info[3] + '.csv'
-	var cont = '姓名,班,A,B,C,W,总分,市排,语,语排,数,数排,外,'
+	var cont = '姓名,班,选,A,B,C,W,总分,市排,语,语排,数,数排,外,'
 		+ '外排,A科,A排,B科,B排,B赋,B赋排,C科,C排,C赋,C赋排'
 	for (var stu in db[exam].main) {
 		var m = db[exam].main[stu]
-		cont += `\n${stu},${m[0]}`
+		cont += `\n${stu},${m[0]},${m[1]}`
 			+ `,${sl[m[1]][0]},${sl[m[1]][1]},${sl[m[1]][2]},${sl[m[1]][3]}`
 		for (var i = 2; i < 20; i++) {
 			cont += `,${m[i]}`
 		}
 	}
 	csv(filename, cont)
-	console.log(`"${db[exam].info[3]}.csv"下载成功：
-	代号：${exam} \n考试：${db[exam].info[0]} `)
+	console.log(`"${db[exam].info[3]}.csv"下载成功：\n代号：${exam} \n考试：${db[exam].info[0]} `)
 }
 function copyAll(name, s) { // 复制指定考生的所有分数
 	if (exist(name)) {
