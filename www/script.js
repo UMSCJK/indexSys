@@ -217,10 +217,10 @@ function copyAll(name, s) { // 复制指定考生的所有分数
 			}
 		}
 		if (allSame(compare) == true) { // 若一样则继续
-			var sel = getSel(name, [joined[0]])
-			var allData = `${name} ${db[joined[0]].main[name][0]}班${s}`
-				+ `总${s}语${s}数${s}${sel[3][1][0]}${s}${sel[0][1][0]}`
-				+ `${s}${sel[1][2][0]}${s}赋${s}${sel[2][2][0]}${s}赋`
+			var sel = getData(name, [joined[0]])[1]
+			var allData = `${name}${' '.repeat(7 - name.length * 2)}`
+				+ `${db[joined[0]].main[name][0]}班${s}总${s}语${s}数${s}${sel[0][0]}`
+				+ `${s}${sel[1][0]}${s}${sel[3][0]}${s}赋${s}${sel[5][0]}${s}赋`
 			for (j of joined) {
 				var a = db[j].main[name]
 				allData += `\n${db[j].info[3]}`
