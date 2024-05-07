@@ -7,33 +7,20 @@ function getData(stu, exam) { // 返回查询所需的指定考试、考生的�
 		var ed = db[$('exams').value]
 		var ss = sl[db[$('exams').value].main[stu][1]]
 	}
-	/* var sub = {
-		"英": ['eng', '英语'],
-		"日": ['jap', '日语'],
-		"物": ['phy', '物理'],
-		"历": ['his', '历史'],
-		"生": ['bio', '生物', '生原'],
-		"地": ['geo', '地理', '地原'],
-		"化": ['che', '化学', '化原'],
-		"政": ['pol', '政治', '政原']
-	} */
-	var sd = [] // Selection Data 选科信息
-	/*A*/if (ss[0] == '物') { sd[0] = ['phy', '物理', 1] }
-	else if (ss[0] == '历') { sd[0] = ['his', '历史', 0] }
-	/*B*/if (ss[1] == '地') { sd[1] = ['geo', '地理', '地原'] }
-	else if (ss[1] == '化') { sd[1] = ['che', '化学', '化原'] }
-	/*C*/if (ss[2] == '生') { sd[2] = ['bio', '生物', '生原'] }
-	else if (ss[2] == '政') { sd[2] = ['pol', '政治', '政原'] }
-	else if (ss[2] == '地') { sd[2] = ['geo', '地理', '地原'] }
-	/*W*/if (ss[3] == '英') { sd[3] = ['eng', '英语'] }
-	else if (ss[3] == '日') { sd[3] = ['jap', '日语'] }
-	var ad = ed.main[stu], es = ed.sub, dat = [
-		[stu, ed.info[1], ed.info[2], ed.info[4], ad[0]],
-		[sd[3][1], sd[0][1], sd[1][2], sd[1][1], sd[2][2], sd[2][1]],
-		[ad[2], ad[4], ad[6], ad[8], ad[10], ad[12], ad[14], ad[16], ad[18]],
-		[ad[3], ad[5], ad[7], ad[9], ad[11], ad[13], ad[15], ad[17], ad[19]],
-		[es.tot[sd[0][2]], es.chn[sd[0][2]], es.mat[sd[0][2]], es[sd[3][0]][sd[0][2]],
-		es[sd[0][0]][sd[0][2]], es[sd[1][0]][sd[0][2]], es[sd[2][0]][sd[0][2]]]
+	var sub = {
+		"英": ['eng', '英语'], "日": ['jap', '日语'],
+		"物": ['phy', '物理', 1], "历": ['his', '历史', 0],
+		"生": ['bio', '生物', '生原'], "地": ['geo', '地理', '地原'],
+		"化": ['che', '化学', '化原'], "政": ['pol', '政治', '政原']
+	}
+	var s = { "a": sub[ss[0]], "b": sub[ss[1]], "c": sub[ss[2]], "w": sub[ss[3]] }
+	var st = ed.main[stu], su = ed.sub, dat = [
+		[stu, ed.info[1], ed.info[2], ed.info[4], st[0]],
+		[s.w[1], s.a[1], s.b[2], s.b[1], s.c[2], s.c[1]],
+		[st[2], st[4], st[6], st[8], st[10], st[12], st[14], st[16], st[18]],
+		[st[3], st[5], st[7], st[9], st[11], st[13], st[15], st[17], st[19]],
+		[su.tot[s.a[2]], su.chn[s.a[2]], su.mat[s.a[2]], su[s.w[0]][s.a[2]],
+		su[s.a[0]], su[s.b[0]][s.a[2]], su[s.c[0]][s.a[2]]]
 	]
 	return dat
 }
@@ -43,7 +30,7 @@ function check() { // 点击查询按钮后运行
 		download($('exams').value)
 	} else if (inm == '') { // 若没输入内容
 		hint('check', '请输入姓名')
-	} else if (inm.slice(-3) == 'all' && exist(inm.slice(0, -3))) {// 若以all结尾且有数据
+	} else if (inm.slice(-3) == 'all' && exist(inm.slice(0, -3))) { // 若以all结尾且有数据
 		inm = inm.slice(0, -3) // 去掉全局变量inm末尾的'all'
 		copyAll(inm, '\t')
 		hint('check', '复制成功')
