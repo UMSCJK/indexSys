@@ -10,7 +10,7 @@
 
 body {
 	height: 100vh;
-	min-width: 320px;
+	min-width: 324px;
 	overflow-x: hidden;
 }
 
@@ -108,6 +108,7 @@ ul#list li span {
 }
 
 p.ps {
+	left: 0;
 	width: 100%;
 	bottom: 16px;
 	text-align: center;
@@ -123,8 +124,8 @@ p.ps {
 	}
 
 	input#name {
-		background-color: #fff;
 		border-top: 0;
+		background-color: #fff;
 	}
 
 	p.ps,
@@ -204,7 +205,8 @@ p.ps {
 		margin: auto;
 		border-bottom: 0;
 	}
-	ul#list{
+
+	ul#list {
 		border-width: 1px;
 	}
 }
