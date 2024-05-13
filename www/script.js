@@ -134,9 +134,11 @@ function list() { // 打印数据库中的所有考试信息 (info)
 	for (var exam in db) {
 		text += `${exam}\t${db[exam].info[4]}\t${keys(db[exam].main).length}人\t${db[exam].info[0]}\n`
 	}
-	var info = `当前数据库内含数据简要信息如下：\n\n日期/代号\t年级\t人数\t考试全称
-${text}\nP.S.: 在姓名框中输入'dl'，点击查询按钮后即开始下载
-所选考试的CSV格式成绩表。也可用以下命令下载全部数据：\nfor (var e in db) { download(e) }`
+	var info = `当前数据库内含数据简要信息如下：
+\n日期/代号\t年级\t人数\t考试全称\n${text}
+P.S.: 在姓名框中输入'dl'，点击查询按钮后即开始下载
+所选考试的CSV格式成绩表。也可用以下命令下载全部数据：
+for (var e in db) { download(e) }`
 	console.log(info)
 }
 function download(exam) { // 下载指定考试的CSV格式成绩单
@@ -160,12 +162,16 @@ function copyAll(name, s) { // 复制指定考生的所有分数
 			}
 		}
 		if (allSame(compare) == true) { // 若一样则继续
-			var sel = getData(name, [joined[0]])[1],
-				allData = `${name}${' '.repeat(7 - name.length * 2)}${db[joined[0]].main[name][0]}班${s}总${s}`
-					+ `语${s}数${s}${sel[0][0]}${s}${sel[1][0]}${s}${sel[3][0]}${s}赋${s}${sel[5][0]}${s}赋`
+			var gd = getData(name, [joined[0]]),
+				allData = `${name}${' '.repeat(7 - name.length * 2)}${gd[0][1]}班`
+					+ `${s}总${s}语${s}数${s}${gd[1][3][0]}${s}${gd[1][4][0]}`
+					+ `${s}${gd[1][5][0]}${s}赋${s}${gd[1][7][0]}${s}赋`
+			console.log(gd)
 			for (var j of joined) {
 				allData += `\n${db[j].info[3]}`
-				for (var i = 1; i < 10; i++) { allData += `${s}${db[j].main[name][i * 2]}` }
+				for (var i = 1; i < 10; i++) {
+					allData += `${s}${db[j].main[name][i * 2]}`
+				}
 			}
 			copy(allData)
 		}
