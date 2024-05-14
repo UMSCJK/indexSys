@@ -82,16 +82,16 @@ window.onload = function () { // 页面加载完成后自动运行
 }
 //#endregion
 //#region 通用函数
-const $ = id => document.getElementById(id) // 简化document.getElementById
-const random = n => Math.floor(Math.random() * n) // 在0和n - 1之间取随机整数
-function allSame(arr) { // 输入数组，若数组内容完全一致，输出true
+const $ = id => document.getElementById(id)
+const random = n => Math.floor(Math.random() * n)
+function allSame(arr) {
 	var same = true
 	for (var i = 1; i < arr.length; i++) {
 		if (arr[i - 1] !== arr[i]) { same = false }
 	}
 	return same
 }
-function copy(text) { // 将text存储至剪贴板 (传统实现)
+function copy(text) {
 	var area = document.createElement('textarea'), tempScrollY = scrollY
 	area.value = text
 	document.body.appendChild(area)
@@ -101,23 +101,23 @@ function copy(text) { // 将text存储至剪贴板 (传统实现)
 	document.body.removeChild(area)
 	scroll(0, tempScrollY)
 }
-function csv(filename, content) { // 下载CSV数据，指定文件名和字符串内容
-	if (filename && content) {
+function csv(file, cnt) {
+	if (file && cnt) {
 		var bom = new Uint8Array([0xEF, 0xBB, 0xBF]),
-			blob = new Blob([bom, content], { type: 'text/csv;charset=utf-8' }),
+			blob = new Blob([bom, cnt], { type: 'text/csv;charset=utf-8' }),
 			tempEle = document.createElement('a')
 		tempEle.href = URL.createObjectURL(blob)
-		tempEle.download = filename
+		tempEle.download = file
 		tempEle.click()
 		URL.revokeObjectURL(tempEle.href)
 	}
 }
-function exist(name) { // 判断数据库中是否存在指定学生数据，返回出现次数
+function exist(name) {
 	var num = 0
 	for (var e in db) { if (db[e].main[name]) { num++ } }
 	return num
 }
-function hint(id, text) { // 改变innerHTML，1.5s后还原
+function hint(id, text) {
 	if ($(id)) { // 创建id-原innerHTML对应表
 		if (typeof (ori) !== 'object') { ori = {} }
 		if (!ori[id]) { ori[id] = $(id).innerHTML }
@@ -129,7 +129,7 @@ function hint(id, text) { // 改变innerHTML，1.5s后还原
 }
 //#endregion
 //#region 开发工具
-function list() { // 打印数据库中的所有考试信息 (info)
+function list() {
 	var text = ''
 	for (var exam in db) {
 		text += `${exam}\t${db[exam].info[4]}\t${keys(db[exam].main).length}人\t${db[exam].info[0]}\n`
@@ -141,7 +141,7 @@ P.S.: 在姓名框中输入'dl'，点击查询按钮后即开始下载
 for (var e in db) { download(e) }`
 	console.log(info)
 }
-function download(exam) { // 下载指定考试的CSV格式成绩单
+function download(exam) {
 	var filename = db[exam].info[3] + '.csv',
 		cont = '姓名,班,选,A,B,C,W,总分,市排,语,语排,数,数排,外,外排,A科,A排,B科,B排,B赋,B赋排,C科,C排,C赋,C赋排'
 	for (var stu in db[exam].main) {
@@ -152,7 +152,7 @@ function download(exam) { // 下载指定考试的CSV格式成绩单
 	csv(filename, cont)
 	console.log(`"${db[exam].info[3]}.csv"下载成功：\n代号：${exam} \n考试：${db[exam].info[0]} `)
 }
-function copyAll(name, s) { // 复制指定考生的所有分数
+function copyAll(name, s) {
 	if (exist(name)) {
 		var compare = [], joined = []
 		for (var e in db) { // 确定指定考生每场考试的班级和选科都一样
@@ -177,7 +177,7 @@ function copyAll(name, s) { // 复制指定考生的所有分数
 		}
 	}
 }
-function fastdebug() { // 随机选择考试考生，直接进入查询结果界面 (调试时使用)
+function fastdebug() {
 	writeHTML()
 	var exams = [], stus = []
 	for (var e in db) { exams.push(e) }
