@@ -1,12 +1,11 @@
 //#region 主要功能
-function getData(stu, exam) { // 返回查询所需的指定考试、考生的全部数据
+function getData(stu, exam) {
 	if (exam) {
-		var ed = db[exam], // Exam Data 指定考试的全部数据
-			ss = sl[db[exam].main[stu][1]] // Student Selection 指定学生的选科代号
+		var ed = db[exam]
 	} else if (!exam && $('exams')) {
-		var ed = db[$('exams').value], ss = sl[db[$('exams').value].main[stu][1]]
+		var ed = db[$('exams').value]
 	}
-	var sub = {
+	var ss = sl[ed.main[stu][1]], sub = {
 		"英": ["eng", "英语"], "日": ["jap", "日语"],
 		"物": ["phy", "物理", 1], "历": ["his", "历史", 0],
 		"生": ["bio", "生物", "生原"], "地": ["geo", "地理", "地原"],
@@ -20,7 +19,7 @@ function getData(stu, exam) { // 返回查询所需的指定考试、考生的�
 		su[s.a[0]], su[s.b[0]][s.a[2]], su[s.c[0]][s.a[2]]]]
 	return dat
 }
-function check() { // 点击查询按钮后运行
+function check() {
 	if ($('exams')) { inm = $('name').value } // 若select#exams存在，初始化inm
 	if (inm == 'dl') { download($('exams').value) } // 若输入内容为'dl'
 	else if (inm == '') { hint('check', '请输入姓名') } // 若没输入内容
